@@ -87,7 +87,7 @@ class _InvitationState extends State<Invitation> {
                   Text("Ceremonia Religiosa:", style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Text("Parroquia de Nuestra Señora de Guadalupe, Ciudad Obregón, Sonora, Mexico",
+                    child: Text("Santuario de Nuestra Señora de Guadalupe, Ciudad Obregón, Sonora, Mexico",
                       textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
                   ),
                 ],
