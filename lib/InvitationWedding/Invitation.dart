@@ -56,10 +56,10 @@ class _InvitationState extends State<Invitation> {
                         crossAxisSpacing: 0.0,
                         mainAxisSpacing: 0.0,
                         children: [
-                          Text("Carmen Alicia Mayorquin", textAlign: TextAlign.left,style: GoogleFonts.raleway(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500),),
-                          Text("Maria Teresa Castro", textAlign: TextAlign.left, style: GoogleFonts.raleway(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500)),
-                          Text("Jorge Alberto Castaños", textAlign: TextAlign.left, style: GoogleFonts.raleway(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500)),
-                          Text("Juan Cota", textAlign: TextAlign.left, style: GoogleFonts.raleway(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500))
+                          Text("Carmen Mayorquin Perez", textAlign: TextAlign.left,style: GoogleFonts.raleway(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500),),
+                          Text("Maria Castro Avila", textAlign: TextAlign.left, style: GoogleFonts.raleway(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500)),
+                          Text("Jorge Castaños Gastelum", textAlign: TextAlign.left, style: GoogleFonts.raleway(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500)),
+                          Text("Juan Angel Cota", textAlign: TextAlign.left, style: GoogleFonts.raleway(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500))
                         ]),
                   ),
                   SizedBox(height: 24,),
