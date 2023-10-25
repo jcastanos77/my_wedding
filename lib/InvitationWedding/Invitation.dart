@@ -18,7 +18,7 @@ class _InvitationState extends State<Invitation> {
         child: Column(
           children: [
             Container(
-              height: 500,
+              height: 400,
               width: MediaQuery.of(context).size.width,
               child: SizedBox(
                 height: 500,
@@ -31,8 +31,8 @@ class _InvitationState extends State<Invitation> {
                 ],),
               ),
               decoration: BoxDecoration(
+                color: Colors.black.withOpacity(1),
                 image: const DecorationImage(
-                  opacity: 0.9,
                   image: AssetImage('assets/principaImage.jpg'),
                   fit: BoxFit.cover,
                 ),
@@ -104,8 +104,8 @@ class _InvitationState extends State<Invitation> {
                   Text("-Mayte y Jorge", style: GoogleFonts.raleway(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),),
                 ],),
               decoration: BoxDecoration(
+                color: Colors.black.withOpacity(1),
                 image: const DecorationImage(
-                  opacity: 0.9,
                   image: AssetImage('assets/thirdImage.jpg'),
                   fit: BoxFit.cover,
                 ),
@@ -133,27 +133,14 @@ class _InvitationState extends State<Invitation> {
             Container(
               height: 300,
               width: MediaQuery.of(context).size.width,
-              child: Container(),
-              decoration: BoxDecoration(
-                image: const DecorationImage(
-                  opacity: 0.9,
-                  image: AssetImage('assets/secondImage.jpg'),
-                  fit: BoxFit.cover,
-                ),
-                border: Border.all(color: Colors.black12, width: 1),
-              ),
-            ),
-            SizedBox(height: 24,),
-            Container(
-              width: MediaQuery.of(context).size.width,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.science_rounded),
-                  Text("Dias restantes:", style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
-                  SizedBox(height: 24,),
+                  Icon(Icons.punch_clock_rounded,color: Colors.white),
+                  Text("Dias restantes:", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
+                  SizedBox(height: 8,),
                   Container(
                     height: 100,
-                    color: Colors.indigo,
                     child: Center(
                       child: TimerCountdown(
                         timeTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
@@ -169,17 +156,25 @@ class _InvitationState extends State<Invitation> {
                             hours: 14,
                             minutes: 27,
                             seconds: 34,),
-                       ),
-                      onEnd: () {
-                       print("Timer finished");
-                      },
+                        ),
+                        onEnd: () {
+                          print("Timer finished");
+                        },
                       ),
                     ),
                   ),
-                  SizedBox(height: 24,),
                 ],
               ),
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(1),
+                image: const DecorationImage(
+                  opacity: 0.9,
+                  image: AssetImage('assets/secondImage.jpg'),
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
+            SizedBox(height: 24,),
             Container(
               width: MediaQuery.of(context).size.width,
               child: Column(
