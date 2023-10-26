@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_wedding/InvitationWedding/CreateInvitation.dart';
 import 'package:my_wedding/checkListWedding/CheckListPage.dart';
+
+import 'InvitationWedding/Invitation.dart';
 
 void main() {
   runApp(const MyApp());
@@ -43,16 +46,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarBrightness: Brightness.light,
+    ));
     return Scaffold(
-      appBar: AppBar(
+      /*appBar: AppBar(
         title: Text(widget.title, style: TextStyle(color: Colors.black),),
         backgroundColor: Color(0xffFFFFFF),
-      ),
+      ),*/
       body: SafeArea(
-        child: _pages.elementAt(_selectedIndex),
+        child: Invitation(),
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      /*bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Color(0xff000000),
         selectedItemColor:  Color(0xffF9AA33),
         unselectedItemColor: Colors.white,
@@ -72,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
             label: 'Game',
           ),
         ],
-      ),
+      ),*/
     );
   }
 
