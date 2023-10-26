@@ -25,9 +25,9 @@ class _InvitationState extends State<Invitation> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                  Text("Boda", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
+                  Text("Bodorrio", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
                   Text("Mayte y Jorge", style: GoogleFonts.homemadeApple(color: Colors.white, fontSize: 30),),
-                  Text("20 de octubre del 2024", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
+                  Text("15 de marzo del 2025", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
                 ],),
               ),
               decoration: BoxDecoration(
@@ -43,9 +43,11 @@ class _InvitationState extends State<Invitation> {
             Container(
               child: Column(
                 children: [
-                  Text("Nuestros padres", style: GoogleFonts.homemadeApple(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+                  Icon(Icons.family_restroom),
+                  Text("Nuestros padres", style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
                   SizedBox(
-                    height: 120,
+                    width: MediaQuery.of(context).size.width,
+                    height: 100,
                     child: GridView.count(
                         physics: NeverScrollableScrollPhysics(),
                         padding: EdgeInsets.all(16),
@@ -56,17 +58,17 @@ class _InvitationState extends State<Invitation> {
                         crossAxisSpacing: 0.0,
                         mainAxisSpacing: 0.0,
                         children: [
-                          Text("Carmen Mayorquin Perez", textAlign: TextAlign.left,style: GoogleFonts.raleway(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500),),
-                          Text("Maria Castro Avila", textAlign: TextAlign.left, style: GoogleFonts.raleway(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500)),
-                          Text("Jorge Castaños Gastelum", textAlign: TextAlign.left, style: GoogleFonts.raleway(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500)),
-                          Text("Juan Angel Cota", textAlign: TextAlign.left, style: GoogleFonts.raleway(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500))
+                          Text("Carmen Mayorquin Perez", textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800),),
+                          Text("Maria Castro Avila", textAlign: TextAlign.center, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800)),
+                          Text("Jorge Castaños Gastelum", textAlign: TextAlign.center, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800)),
+                          Text("Juan Angel Cota", textAlign: TextAlign.center, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800))
                         ]),
                   ),
-                  SizedBox(height: 24,),
-                  Text("Nuestros padrinos", style: GoogleFonts.homemadeApple(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
-                  Text("Padrino Prueba Uno", textAlign: TextAlign.left,style: GoogleFonts.raleway(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500),),
+                  Text("Nuestros padrinos", style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
                   SizedBox(height: 8,),
-                  Text("Madrina Prueba Dos", textAlign: TextAlign.left, style: GoogleFonts.raleway(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500)),
+                  Text("Padrino Prueba Uno", textAlign: TextAlign.left,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800),),
+                  SizedBox(height: 8,),
+                  Text("Madrina Prueba Dos", textAlign: TextAlign.left, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800)),
                 ],
               ),
             ),
@@ -79,7 +81,7 @@ class _InvitationState extends State<Invitation> {
                   Text("Ubicación del evento:", style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Text("Jardin Duland, MARIA TERESA DE CALCUTA, Los Misioneros, Ciudad Obregón, Sonora, Mexico",
+                    child: Text("Floresta Jardín, MARIA TERESA DE CALCUTA, Los Misioneros, Ciudad Obregón, Sonora, Mexico",
                       textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
                   ),
                   SizedBox(height: 24,),
@@ -145,6 +147,7 @@ class _InvitationState extends State<Invitation> {
                       child: TimerCountdown(
                         timeTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                         descriptionTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+                        colonsTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
                         format: CountDownTimerFormat.daysHoursMinutesSeconds,
                         hoursDescription: "Horas",
                         daysDescription: "Dias",
