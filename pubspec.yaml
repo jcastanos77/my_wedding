@@ -53,6 +53,8 @@ dev_dependencies:
   google_maps_flutter: ^2.3.0
   intl: ^0.18.1
   flutter_map: ^2.2.0
+  fan_carousel_image_slider: ^0.1.2
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

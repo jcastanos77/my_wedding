@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
+import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
 
 class Invitation extends StatefulWidget {
   const Invitation({Key? key}) : super(key: key);
@@ -10,7 +11,9 @@ class Invitation extends StatefulWidget {
 }
 
 class _InvitationState extends State<Invitation> {
-
+  static const List<String> sampleImages = [
+    "assets/principaImage.jpg","assets/secondImage.jpg","assets/thirdImage.jpg"
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,24 +48,31 @@ class _InvitationState extends State<Invitation> {
                 children: [
                   Icon(Icons.family_restroom),
                   Text("Nuestros padres", style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
-                  SizedBox(
+                  SizedBox(height: 24,),
+                  Container(
                     width: MediaQuery.of(context).size.width,
                     height: 100,
-                    child: GridView.count(
-                        physics: NeverScrollableScrollPhysics(),
-                        padding: EdgeInsets.all(16),
-                        scrollDirection: Axis.vertical,
-                        childAspectRatio: (1 / .25),
-                        shrinkWrap: true,
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 0.0,
-                        mainAxisSpacing: 0.0,
-                        children: [
-                          Text("Carmen Mayorquin Perez", textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800),),
-                          Text("Maria Castro Avila", textAlign: TextAlign.center, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800)),
-                          Text("Jorge Castaños Gastelum", textAlign: TextAlign.center, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800)),
-                          Text("Juan Angel Cota", textAlign: TextAlign.center, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800))
-                        ]),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Carmen Mayorquin Perez", textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800),),
+                            SizedBox(width: 24,),
+                            Text("Maria Castro Avila", textAlign: TextAlign.center, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800)),
+
+                        ],),
+                        SizedBox(height: 24,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Jorge Castaños Gastelum", textAlign: TextAlign.center, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800)),
+                            SizedBox(width: 24,),
+                            Text("Juan Angel Cota", textAlign: TextAlign.center, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800))
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                   Text("Nuestros padrinos", style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
                   SizedBox(height: 8,),
@@ -193,6 +203,13 @@ class _InvitationState extends State<Invitation> {
                 ],
               ),
             ),
+            Icon(Icons.monochrome_photos),
+            Text("Nuestros momentos:", style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+            FanCarouselImageSlider(
+              imagesLink: sampleImages,
+              isAssets: true,
+            ),
+            SizedBox(height: 24,),
           ],
         ),
       ),
