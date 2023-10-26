@@ -1,11 +1,11 @@
 {
-    "name": "my_wedding",
-    "short_name": "my_wedding",
+    "name": "myWedding",
+    "short_name": "myWedding",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "This is first version app for my wedding",
+    "theme_color": "#252627",
+    "description": "Mi boda perfecta",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
