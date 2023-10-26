@@ -12,7 +12,7 @@ class Invitation extends StatefulWidget {
 
 class _InvitationState extends State<Invitation> {
   static const List<String> sampleImages = [
-    "assets/principaImage.jpg","assets/secondImage.jpg","assets/thirdImage.jpg"
+    "assets/principaImage.jpg","assets/secondImage.jpg","assets/thirdImage.jpg","assets/thirdImage.jpg"
   ];
   @override
   Widget build(BuildContext context) {
