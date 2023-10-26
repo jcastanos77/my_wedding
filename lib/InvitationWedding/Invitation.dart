@@ -25,7 +25,7 @@ class _InvitationState extends State<Invitation> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                  Text("Bodorrio", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
+                  Text("Boda", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
                   Text("Mayte y Jorge", style: GoogleFonts.homemadeApple(color: Colors.white, fontSize: 30),),
                   Text("15 de marzo del 2025", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
                 ],),
@@ -142,6 +142,7 @@ class _InvitationState extends State<Invitation> {
                   Text("Dias restantes:", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
                   SizedBox(height: 8,),
                   Container(
+                    color: Colors.black.withOpacity(.1),
                     height: 100,
                     child: Center(
                       child: TimerCountdown(
