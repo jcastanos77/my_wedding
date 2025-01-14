@@ -51,6 +51,14 @@ class _InvitationState extends State<Invitation> {
   }
   @override
   Widget build(BuildContext context) {
+    DateTime a = DateTime(2025,3,29,16,00);
+    DateTime b = DateTime.now();
+    Duration difference = a.difference(b);
+
+    int days = difference.inDays;
+    int hours = difference.inHours % 24;
+    int minutes = difference.inMinutes % 60;
+    int seconds = difference.inSeconds % 60;
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -113,7 +121,7 @@ class _InvitationState extends State<Invitation> {
                   Text("Ubicación del evento:", style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Text(lugarBoda,
+                    child: Text("La Roca",
                       textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
                   ),
                   SizedBox(height: 24,),
@@ -121,7 +129,7 @@ class _InvitationState extends State<Invitation> {
                   Text("Ceremonia Religiosa:", style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Text(lugarIglesia,
+                    child: Text("Parroquia de Nuestra Señora de Guadalupe",
                       textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
                   ),
                 ],
@@ -188,10 +196,10 @@ class _InvitationState extends State<Invitation> {
                         secondsDescription: "Segundos",
                         endTime: DateTime.now().add(
                           Duration(
-                            days: 5,
-                            hours: 14,
-                            minutes: 27,
-                            seconds: 34,),
+                            days: days,
+                            hours: hours,
+                            minutes: minutes,
+                            seconds: seconds,),
                         ),
                         onEnd: () {
                           print("Timer finished");
