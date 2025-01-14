@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_wedding/InvitationWedding/CreateInvitation.dart';
+import 'package:my_wedding/InvitationWedding/Invitation.dart';
 import 'package:my_wedding/checkListWedding/CheckListPage.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'InvitationWedding/Invitation.dart';
-
-void main() {
-  runApp(const MyApp());
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: const FirebaseOptions(
+      apiKey: "AIzaSyAYd8--mfLCjQMSFwrIINp-mLNQZjwHpic",
+      appId: "1:870428658400:web:bf43292a4aa4b094705e85",
+      messagingSenderId: "870428658400",
+      projectId: "my-wedding-402918"));
+  runApp(ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -33,7 +40,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 0;
 
   static const List<Widget> _pages = <Widget>[
     CheckListPage(),
@@ -51,10 +57,6 @@ class _MyHomePageState extends State<MyHomePage> {
       statusBarBrightness: Brightness.light,
     ));
     return Scaffold(
-      /*appBar: AppBar(
-        title: Text(widget.title, style: TextStyle(color: Colors.black),),
-        backgroundColor: Color(0xffFFFFFF),
-      ),*/
       body: SafeArea(
         child: Invitation(),
       ),
@@ -80,11 +82,5 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),*/
     );
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
   }
 }

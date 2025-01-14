@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -15,7 +16,7 @@
     the `--base-href` argument provided to `flutter build`.
   -->
   <base href="$FLUTTER_BASE_HREF">
-
+  <script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap"></script>
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="This is first version app for my wedding">
@@ -31,7 +32,6 @@
 
   <title>my_wedding</title>
   <link rel="manifest" href="manifest.json">
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYd8--mfLCjQMSFwrIINp-mLNQZjwHpic"></script>
   <script>
     // The value below is injected by flutter build, do not touch.
     var serviceWorkerVersion = null;

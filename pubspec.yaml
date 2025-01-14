@@ -31,7 +31,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
@@ -47,14 +46,17 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
   group_button: ^5.3.3
-  google_fonts: 2.1.1
+  google_fonts: ^6.1.0
   flutter_timer_countdown: ^1.0.6
   location: ^5.0.3
-  google_maps_flutter: ^2.3.0
+  google_maps_flutter: ^2.5.0
   intl: ^0.18.1
-  flutter_map: ^2.2.0
   fan_carousel_image_slider: ^0.1.2
-
+  firebase_core: ^2.20.0
+  cloud_firestore: #https://pub.dev/packages/cloud_firestore
+  rflutter_alert: ^2.0.7
+  flutter_riverpod: ^1.0.4
+  map_location_picker: ^1.2.8+3
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

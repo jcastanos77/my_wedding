@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class Invitation extends StatefulWidget {
   const Invitation({Key? key}) : super(key: key);
@@ -11,11 +13,45 @@ class Invitation extends StatefulWidget {
 }
 
 class _InvitationState extends State<Invitation> {
+  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('invitation').snapshots();
+
   static const List<String> sampleImages = [
     "assets/principaImage.jpg","assets/secondImage.jpg","assets/thirdImage.jpg","assets/thirdImage.jpg"
   ];
+
+  String nombreNovios = "";
+  String nombrePadrino = "";
+  String nombreMadrina = "";
+  String fechaBoda = "";
+  String lugarBoda = "";
+  String lugarIglesia = "";
+  String fraseDeNovios = "";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FirebaseFirestore.instance
+        .collection('invitation')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        setState(() {
+          nombreNovios = doc["nombreNovios"];
+          fechaBoda = doc["fechaBoda"];
+          nombrePadrino = doc["nombrePadrino"];
+          nombreMadrina = doc["nombreMadrina"];
+          lugarBoda = doc["lugarBoda"];
+          lugarIglesia = doc["lugarIglesia"];
+          fraseDeNovios = doc["fraseDeNovios"];
+        });
+      });
+    });
+
+  }
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -28,10 +64,10 @@ class _InvitationState extends State<Invitation> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                  Text("Boda", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
-                  Text("Mayte y Jorge", style: GoogleFonts.homemadeApple(color: Colors.white, fontSize: 30),),
-                  Text("15 de marzo del 2025", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
-                ],),
+                    Text("Boda", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
+                    Text(nombreNovios, style: GoogleFonts.homemadeApple(color: Colors.white, fontSize: 30),),
+                    Text(fechaBoda, style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
+                  ],),
               ),
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(1),
@@ -47,38 +83,24 @@ class _InvitationState extends State<Invitation> {
               child: Column(
                 children: [
                   Icon(Icons.family_restroom),
-                  Text("Nuestros padres", style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+                  Text("Padres novia", style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+                  SizedBox(height: 8,),
+                  Text("Maria Castro Avila", textAlign: TextAlign.center, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800)),
+                  SizedBox(height: 8,),
+                  Text("Juan Angel Cota", textAlign: TextAlign.center, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800)),
                   SizedBox(height: 24,),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 100,
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Carmen Mayorquin Perez", textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800),),
-                            SizedBox(width: 24,),
-                            Text("Maria Castro Avila", textAlign: TextAlign.center, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800)),
-
-                        ],),
-                        SizedBox(height: 24,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Jorge Castaños Gastelum", textAlign: TextAlign.center, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800)),
-                            SizedBox(width: 24,),
-                            Text("Juan Angel Cota", textAlign: TextAlign.center, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800))
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
+                  Icon(Icons.family_restroom),
+                  Text("Padres Novio", style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+                  SizedBox(height: 8,),
+                  Text("Carmen Mayorquin Perez", textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800),),
+                  SizedBox(height: 8,),
+                  Text("Jorge Castaños Gastelum", textAlign: TextAlign.center, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800)),
+                  SizedBox(height: 24,),
                   Text("Nuestros padrinos", style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
                   SizedBox(height: 8,),
-                  Text("Padrino Prueba Uno", textAlign: TextAlign.left,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800),),
+                  Text(nombreMadrina, textAlign: TextAlign.left,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800),),
                   SizedBox(height: 8,),
-                  Text("Madrina Prueba Dos", textAlign: TextAlign.left, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800)),
+                  Text(nombrePadrino, textAlign: TextAlign.left, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800)),
                 ],
               ),
             ),
@@ -91,7 +113,7 @@ class _InvitationState extends State<Invitation> {
                   Text("Ubicación del evento:", style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Text("Floresta Jardín, MARIA TERESA DE CALCUTA, Los Misioneros, Ciudad Obregón, Sonora, Mexico",
+                    child: Text(lugarBoda,
                       textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
                   ),
                   SizedBox(height: 24,),
@@ -99,7 +121,7 @@ class _InvitationState extends State<Invitation> {
                   Text("Ceremonia Religiosa:", style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Text("Santuario de Nuestra Señora de Guadalupe, Ciudad Obregón, Sonora, Mexico",
+                    child: Text(lugarIglesia,
                       textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
                   ),
                 ],
@@ -112,8 +134,8 @@ class _InvitationState extends State<Invitation> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("El mejor tipo de amor es el que despierta el alma y nos hace aspirar a más", textAlign: TextAlign.center,style: GoogleFonts.homemadeApple(color: Colors.white, fontSize: 20),),
-                  Text("-Mayte y Jorge", style: GoogleFonts.raleway(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),),
+                  Text(fraseDeNovios, textAlign: TextAlign.center,style: GoogleFonts.homemadeApple(color: Colors.white, fontSize: 20),),
+                  Text("-${nombreNovios}", style: GoogleFonts.raleway(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),),
                 ],),
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(1),
