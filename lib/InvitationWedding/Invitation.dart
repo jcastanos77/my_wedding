@@ -3,7 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:map_launcher/map_launcher.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Invitation extends StatefulWidget {
   const Invitation({Key? key}) : super(key: key);
@@ -49,6 +50,46 @@ class _InvitationState extends State<Invitation> {
     });
 
   }
+
+  openMapsSheet(context) async {
+    try {
+      final coords = Coords(37.759392, -122.5107336);
+      final title = "Ocean Beach";
+      final availableMaps = await MapLauncher.installedMaps;
+
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return SafeArea(
+            child: SingleChildScrollView(
+              child: Container(
+                child: Wrap(
+                  children: <Widget>[
+                    for (var map in availableMaps)
+                      ListTile(
+                        onTap: () => map.showMarker(
+                          coords: coords,
+                          title: title,
+                        ),
+                        title: Text(map.mapName),
+                        leading: SvgPicture.asset(
+                          map.icon,
+                          height: 30.0,
+                          width: 30.0,
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     DateTime a = DateTime(2025,3,29,16,00);
@@ -73,8 +114,8 @@ class _InvitationState extends State<Invitation> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text("Boda", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
-                    Text(nombreNovios, style: GoogleFonts.homemadeApple(color: Colors.white, fontSize: 30),),
-                    Text(fechaBoda, style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
+                    Text("Jorge y Mayte", style: GoogleFonts.homemadeApple(color: Colors.white, fontSize: 30),),
+                    Text("29 de marzo del 2025", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
                   ],),
               ),
               decoration: BoxDecoration(
@@ -124,6 +165,10 @@ class _InvitationState extends State<Invitation> {
                     child: Text("La Roca",
                       textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
                   ),
+              MaterialButton(
+                onPressed: () => openMapsSheet(context),
+                child: Text('Show Maps'),
+                  ),
                   SizedBox(height: 24,),
                   Icon(Icons.church),
                   Text("Ceremonia Religiosa:", style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
@@ -131,6 +176,10 @@ class _InvitationState extends State<Invitation> {
                     padding: const EdgeInsets.all(16.0),
                     child: Text("Parroquia de Nuestra Señora de Guadalupe",
                       textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+                  ),
+                  MaterialButton(
+                    onPressed: () => openMapsSheet(context),
+                    child: Text('Show Maps'),
                   ),
                 ],
               ),
