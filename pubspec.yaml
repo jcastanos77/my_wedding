@@ -59,6 +59,7 @@ dev_dependencies:
   map_location_picker: ^1.2.8+3
   map_launcher: ^3.5.0
   flutter_svg:
+  url_launcher: ^6.3.1
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

@@ -5,6 +5,7 @@ import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Invitation extends StatefulWidget {
   const Invitation({Key? key}) : super(key: key);
@@ -28,6 +29,14 @@ class _InvitationState extends State<Invitation> {
   String lugarIglesia = "";
   String fraseDeNovios = "";
 
+  static void navigateTo(double lat, double lng) async {
+    var uri = Uri.parse("google.navigation:q=$lat,$lng&mode=d");
+    if (await canLaunch(uri.toString())) {
+      await launch(uri.toString());
+    } else {
+      throw 'Could not launch ${uri.toString()}';
+    }
+  }
   @override
   void initState() {
     // TODO: implement initState
@@ -166,7 +175,9 @@ class _InvitationState extends State<Invitation> {
                       textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
                   ),
               MaterialButton(
-                onPressed: () => openMapsSheet(context),
+                onPressed: () => {
+                  navigateTo(27.554004, -109.9391002)
+                },
                 child: Text('Show Maps'),
                   ),
                   SizedBox(height: 24,),
@@ -178,7 +189,9 @@ class _InvitationState extends State<Invitation> {
                       textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
                   ),
                   MaterialButton(
-                    onPressed: () => openMapsSheet(context),
+                    onPressed: () => {
+                      navigateTo(27.4898813, -109.9386218)
+                    },
                     child: Text('Show Maps'),
                   ),
                 ],
