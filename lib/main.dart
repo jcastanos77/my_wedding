@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_wedding/InvitationWedding/CreateInvitation.dart';
 import 'package:my_wedding/InvitationWedding/Invitation.dart';
+import 'package:my_wedding/SplashWedding.dart';
 import 'package:my_wedding/checkListWedding/CheckListPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -58,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ));
     return Scaffold(
       body: SafeArea(
-        child: Invitation(),
+        child: Splashwedding(),
       ),
       /*bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Color(0xff000000),
