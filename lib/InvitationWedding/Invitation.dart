@@ -30,7 +30,7 @@ class _InvitationState extends State<Invitation> {
   String fraseDeNovios = "";
 
   static void navigateTo(double lat, double lng) async {
-    var uri = Uri.parse("google.navigation:q=$lat,$lng&mode=d");
+    var uri = Uri.parse("https://www.google.com/maps/search/?api=1&query=$lat,$lng");
     if (await canLaunch(uri.toString())) {
       await launch(uri.toString());
     } else {
@@ -117,16 +117,52 @@ class _InvitationState extends State<Invitation> {
             Container(
               height: 400,
               width: MediaQuery.of(context).size.width,
-              child: SizedBox(
-                height: 500,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("Boda", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
-                    Text("Jorge y Mayte", style: GoogleFonts.homemadeApple(color: Colors.white, fontSize: 30),),
-                    Text("29 de marzo del 2025", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
-                  ],),
-              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Boda", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
+                  Text("Jorge y Mayte", style: GoogleFonts.homemadeApple(color: Colors.white, fontSize: 30),),
+                  Text("29 de marzo del 2025", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
+                  SizedBox(height: 24,),
+                  Container(
+                    height: 200,
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.punch_clock_rounded,color: Colors.white),
+                        Text("Dias restantes:", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
+                        SizedBox(height: 8,),
+                        Container(
+                          color: Colors.black.withOpacity(.1),
+                          height: 100,
+                          child: Center(
+                            child: TimerCountdown(
+                              timeTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                              descriptionTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+                              colonsTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+                              format: CountDownTimerFormat.daysHoursMinutesSeconds,
+                              hoursDescription: "Horas",
+                              daysDescription: "Dias",
+                              minutesDescription: "Minutos",
+                              secondsDescription: "Segundos",
+                              endTime: DateTime.now().add(
+                                Duration(
+                                  days: days,
+                                  hours: hours,
+                                  minutes: minutes,
+                                  seconds: seconds,),
+                              ),
+                              onEnd: () {
+                                print("Timer finished");
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],),
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(1),
                 image: const DecorationImage(
@@ -156,9 +192,9 @@ class _InvitationState extends State<Invitation> {
                   SizedBox(height: 24,),
                   Text("Nuestros padrinos", style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
                   SizedBox(height: 8,),
-                  Text(nombreMadrina, textAlign: TextAlign.left,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800),),
+                  Text("Lorena", textAlign: TextAlign.left,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800),),
                   SizedBox(height: 8,),
-                  Text(nombrePadrino, textAlign: TextAlign.left, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800)),
+                  Text("Julio Maldonado", textAlign: TextAlign.left, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800)),
                 ],
               ),
             ),
@@ -176,9 +212,9 @@ class _InvitationState extends State<Invitation> {
                   ),
               MaterialButton(
                 onPressed: () => {
-                  navigateTo(27.554004, -109.9391002)
+                  navigateTo(27.553944, -109.926336)
                 },
-                child: Text('Show Maps'),
+                child: Text('Mostrar en el mapa'),
                   ),
                   SizedBox(height: 24,),
                   Icon(Icons.church),
@@ -190,9 +226,9 @@ class _InvitationState extends State<Invitation> {
                   ),
                   MaterialButton(
                     onPressed: () => {
-                      navigateTo(27.4898813, -109.9386218)
+                      navigateTo( 27.490368, -109.938906)
                     },
-                    child: Text('Show Maps'),
+                    child: Text('Mostrar en el mapa'),
                   ),
                 ],
               ),
@@ -231,53 +267,6 @@ class _InvitationState extends State<Invitation> {
                   Text("Respetuosamente no niños",
                     textAlign: TextAlign.center,style: GoogleFonts.raleway(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500),),
                 ],
-              ),
-            ),
-            SizedBox(height: 24,),
-            Container(
-              height: 300,
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.punch_clock_rounded,color: Colors.white),
-                  Text("Dias restantes:", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
-                  SizedBox(height: 8,),
-                  Container(
-                    color: Colors.black.withOpacity(.1),
-                    height: 100,
-                    child: Center(
-                      child: TimerCountdown(
-                        timeTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-                        descriptionTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
-                        colonsTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
-                        format: CountDownTimerFormat.daysHoursMinutesSeconds,
-                        hoursDescription: "Horas",
-                        daysDescription: "Dias",
-                        minutesDescription: "Minutos",
-                        secondsDescription: "Segundos",
-                        endTime: DateTime.now().add(
-                          Duration(
-                            days: days,
-                            hours: hours,
-                            minutes: minutes,
-                            seconds: seconds,),
-                        ),
-                        onEnd: () {
-                          print("Timer finished");
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              decoration: BoxDecoration(
-                color: Colors.black.withOpacity(1),
-                image: const DecorationImage(
-                  opacity: 0.9,
-                  image: AssetImage('assets/secondImage.jpg'),
-                  fit: BoxFit.cover,
-                ),
               ),
             ),
             SizedBox(height: 24,),
