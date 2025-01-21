@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_animated_splash/flutter_animated_splash.dart';
 import 'package:my_wedding/InvitationWedding/Invitation.dart';
 import 'package:animated_background_view/animated_background_view.dart';
 
@@ -15,7 +14,7 @@ class _SplashweddingState extends State<Splashwedding> {
 
   @override
   Widget build(BuildContext context) {
-    final style = GoogleFonts.dancingScript(color: Colors.black, fontSize: 90, fontWeight: FontWeight.bold);
+    final colorPrincipal = Color(0xff76453c);
     double width = MediaQuery.sizeOf(context).width;
     double height = MediaQuery.sizeOf(context).height;
 
@@ -37,26 +36,26 @@ class _SplashweddingState extends State<Splashwedding> {
             ),
             Center(
               child: Container(
-                width: 400,
-                height: 400,
+                width: 350,
+                height: 350,
                 color: Colors.black.withOpacity(0.03),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Eres especial para nosotros", style: GoogleFonts.lato(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w300),),
+                    Text("Eres especial para nosotros", style: GoogleFonts.lato(color: colorPrincipal, fontSize: 25, fontWeight: FontWeight.w300),),
                     SizedBox(height: 8,),
-                    Text("Jorge", style: GoogleFonts.windSong(color: Colors.black, fontSize: 50, fontWeight: FontWeight.w600),),
-                    Text("     Mayte", textAlign: TextAlign.center, style: GoogleFonts.windSong(color: Colors.black, fontSize: 50, fontWeight: FontWeight.w600)),
+                    Text("Jorge", style: GoogleFonts.windSong(color: colorPrincipal, fontSize: 40, fontWeight: FontWeight.w600),),
+                    Text("     Mayte", textAlign: TextAlign.center, style: GoogleFonts.windSong(color: colorPrincipal, fontSize: 40, fontWeight: FontWeight.w600)),
                     SizedBox(height: 8,),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Marzo", textAlign: TextAlign.center, style: GoogleFonts.lato(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w300)),
+                        Text("Marzo", textAlign: TextAlign.center, style: GoogleFonts.lato(color: colorPrincipal, fontSize: 20, fontWeight: FontWeight.w300)),
                         SizedBox(width: 32,),
-                        Text("29", textAlign: TextAlign.center, style: GoogleFonts.lato(color: Colors.black, fontSize: 50, fontWeight: FontWeight.w300)),
+                        Text("29", textAlign: TextAlign.center, style: GoogleFonts.lato(color: colorPrincipal, fontSize: 40, fontWeight: FontWeight.w300)),
                         SizedBox(width: 32,),
-                        Text("2025", textAlign: TextAlign.center, style: GoogleFonts.lato(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w300)),
+                        Text("2025", textAlign: TextAlign.center, style: GoogleFonts.lato(color: colorPrincipal, fontSize: 20, fontWeight: FontWeight.w300)),
                       ],
                     ),
                     SizedBox(height: 8,),
