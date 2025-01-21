@@ -5,6 +5,7 @@ import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:map_launcher/map_launcher.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Invitation extends StatefulWidget {
@@ -37,33 +38,11 @@ class _InvitationState extends State<Invitation> {
       throw 'Could not launch ${uri.toString()}';
     }
   }
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    FirebaseFirestore.instance
-        .collection('invitation')
-        .get()
-        .then((QuerySnapshot querySnapshot) {
-      querySnapshot.docs.forEach((doc) {
-        setState(() {
-          nombreNovios = doc["nombreNovios"];
-          fechaBoda = doc["fechaBoda"];
-          nombrePadrino = doc["nombrePadrino"];
-          nombreMadrina = doc["nombreMadrina"];
-          lugarBoda = doc["lugarBoda"];
-          lugarIglesia = doc["lugarIglesia"];
-          fraseDeNovios = doc["fraseDeNovios"];
-        });
-      });
-    });
 
-  }
-
-  openMapsSheet(context) async {
+  openMapsSheet(context, double lat, double lng) async {
     try {
-      final coords = Coords(37.759392, -122.5107336);
-      final title = "Ocean Beach";
+      final coords = Coords(lat, lng);
+      final title = "Bodorrio mayte y jorgais";
       final availableMaps = await MapLauncher.installedMaps;
 
       showModalBottomSheet(
@@ -97,6 +76,28 @@ class _InvitationState extends State<Invitation> {
     } catch (e) {
       print(e);
     }
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FirebaseFirestore.instance
+        .collection('invitation')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        setState(() {
+          nombreNovios = doc["nombreNovios"];
+          fechaBoda = doc["fechaBoda"];
+          nombrePadrino = doc["nombrePadrino"];
+          nombreMadrina = doc["nombreMadrina"];
+          lugarBoda = doc["lugarBoda"];
+          lugarIglesia = doc["lugarIglesia"];
+          fraseDeNovios = doc["fraseDeNovios"];
+        });
+      });
+    });
+
   }
 
   @override
@@ -240,10 +241,12 @@ class _InvitationState extends State<Invitation> {
                       textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
                   ),
               MaterialButton(
+                elevation: 1,
+                color: Color(0xfff7bba9),
                 onPressed: () => {
-                  navigateTo(27.553944, -109.926336)
+                  openMapsSheet(context,27.553944, -109.926336)
                 },
-                child: Text('Mostrar en el mapa'),
+                child: Text('Mostrar en el mapa', style: GoogleFonts.lato(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w700),),
                   ),
                   SizedBox(height: 24,),
                   Icon(Icons.church),
@@ -254,10 +257,12 @@ class _InvitationState extends State<Invitation> {
                       textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
                   ),
                   MaterialButton(
+                    elevation: 1,
+                    color: Color(0xfff7bba9),
                     onPressed: () => {
-                      navigateTo( 27.490368, -109.938906)
+                      openMapsSheet(context,27.490368, -109.938906)
                     },
-                    child: Text('Mostrar en el mapa'),
+                    child: Text('Mostrar en el mapa', style: GoogleFonts.lato(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w700)),
                   ),
                 ],
               ),
@@ -313,11 +318,21 @@ class _InvitationState extends State<Invitation> {
                 ],
               ),
             ),
-            Icon(Icons.monochrome_photos),
-            Text("Nuestros momentos:", style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
-            FanCarouselImageSlider(
-              imagesLink: sampleImages,
-              isAssets: true,
+            Container(
+              color: Color(0xffd8d87c),
+              child: Column(
+                children: [
+                  SizedBox(height: 24,),
+                  Icon(Icons.monochrome_photos, color: Colors.white,),
+                  Text("Nuestros momentos:", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
+                  FanCarouselImageSlider(
+                    imagesLink: sampleImages,
+                    isAssets: true,
+                    indicatorActiveColor: Colors.white,
+                  ),
+                  SizedBox(height: 24,),
+                ],
+              ),
             ),
             SizedBox(height: 24,),
           ],
