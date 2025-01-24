@@ -61,6 +61,7 @@ dev_dependencies:
   url_launcher: ^6.3.1
   flutter_animated_splash: ^0.0.10
   animated_background_view: ^0.0.2
+  flutter_launcher_icons: ^0.14.3
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -72,6 +73,17 @@ flutter:
     - assets/secondImage.jpg
     - assets/thirdImage.jpg
     - assets/gift.png
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/assets/clipart116047.png"
+  min_sdk_android: 21
+  web:
+    generate: true
+    image_path: "assets/assets/clipart116047.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

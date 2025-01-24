@@ -5,7 +5,7 @@
    <application
         android:label="my_wedding"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
        <meta-data android:name="com.google.android.geo.AIzaSyAYd8--mfLCjQMSFwrIINp-mLNQZjwHpic"
                   android:value="AIzaSyAYd8--mfLCjQMSFwrIINp-mLNQZjwHpic"/>
         <activity
