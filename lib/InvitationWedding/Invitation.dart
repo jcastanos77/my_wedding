@@ -3,9 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:map_launcher/map_launcher.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:map_launcher/map_launcher.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Invitation extends StatefulWidget {
@@ -78,10 +75,10 @@ class _InvitationState extends State<Invitation> {
         child: Column(
           children: [
             Container(
-              height: 400,
+              height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text("Boda", style: GoogleFonts.raleway(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),),
                   Text("Jorge y Mayte", style: GoogleFonts.homemadeApple(color: Colors.white, fontSize: 35),),
@@ -94,16 +91,16 @@ class _InvitationState extends State<Invitation> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.punch_clock_rounded,color: Colors.white),
-                        Text("Dias restantes:", style: GoogleFonts.raleway(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),),
+                        Text("Dias restantes:", style: GoogleFonts.raleway(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),),
                         SizedBox(height: 8,),
                         Container(
                           color: Colors.black.withOpacity(.1),
                           height: 100,
                           child: Center(
                             child: TimerCountdown(
-                              timeTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
-                              descriptionTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-                              colonsTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                              timeTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+                              descriptionTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                              colonsTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
                               format: CountDownTimerFormat.daysHoursMinutesSeconds,
                               hoursDescription: "Horas",
                               daysDescription: "Dias",
@@ -270,9 +267,9 @@ class _InvitationState extends State<Invitation> {
                 children: [
                   Image.asset("assets/gift.png", height: 18, width: 18),
                   Text("Sugerencia de regalo:", style: GoogleFonts.raleway(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
-                  SizedBox(height: 24,),
+                  SizedBox(height: 16,),
                   Text("¡Tu asistencia es lo mas importante!", style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),),
-                  SizedBox(height: 8,),
+                  SizedBox(height: 24,),
                   Text("Pero si deseas darnos un regalo, agradecemos sea en efectivo.",textAlign: TextAlign.center ,style: GoogleFonts.raleway(color: Colors.black, fontSize: 22, fontWeight: FontWeight.normal),),
                   SizedBox(height: 24,),
                 ],
@@ -289,6 +286,7 @@ class _InvitationState extends State<Invitation> {
                     imagesLink: sampleImages,
                     isAssets: true,
                     indicatorActiveColor: Colors.white,
+                    autoPlay: false,
                   ),
                   SizedBox(height: 24,),
                 ],
