@@ -33,7 +33,7 @@ class _InvitationState extends State<Invitation> {
   static void navigateTo(double lat, double lng) async {
     var uri = Uri.parse("https://www.google.com/maps/search/?api=1&query=$lat,$lng");
     if (await canLaunch(uri.toString())) {
-      await launch(uri.toString());
+      await launch(uri.toString(), enableJavaScript: true, forceSafariVC: true);
     } else {
       throw 'Could not launch ${uri.toString()}';
     }
@@ -230,7 +230,7 @@ class _InvitationState extends State<Invitation> {
                 elevation: 1,
                 color: Color(0xfff7bba9),
                 onPressed: () => {
-                  launchGoogleMaps(27.553944, -109.926336)
+                  navigateTo(27.553944, -109.926336)
                 },
                 child: Text('Mostrar en el mapa', style: GoogleFonts.lato(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w700),),
                   ),
@@ -246,7 +246,7 @@ class _InvitationState extends State<Invitation> {
                     elevation: 1,
                     color: Color(0xfff7bba9),
                     onPressed: () => {
-                      launchGoogleMaps(27.490368, -109.938906)
+                      navigateTo(27.490368, -109.938906)
                     },
                     child: Text('Mostrar en el mapa', style: GoogleFonts.lato(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w700)),
                   ),
