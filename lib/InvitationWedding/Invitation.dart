@@ -39,6 +39,20 @@ class _InvitationState extends State<Invitation> {
     }
   }
 
+  static Future<void> launchGoogleMaps(double lat,double lon) async {
+    final uri = Uri(
+        scheme: "google.navigation",
+        // host: '"0,0"',  {here we can put host}
+        queryParameters: {
+          'q': '$lat, $lon'
+        });
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      debugPrint('An error occurred');
+    }
+  }
+
   openMapsSheet(context, double lat, double lng) async {
       final coords = Coords(lat, lng);
       final title = "Bodorrio mayte y jorgais";
@@ -216,7 +230,7 @@ class _InvitationState extends State<Invitation> {
                 elevation: 1,
                 color: Color(0xfff7bba9),
                 onPressed: () => {
-                  openMapsSheet(context,27.553944, -109.926336)
+                  launchGoogleMaps(27.553944, -109.926336)
                 },
                 child: Text('Mostrar en el mapa', style: GoogleFonts.lato(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w700),),
                   ),
@@ -232,7 +246,7 @@ class _InvitationState extends State<Invitation> {
                     elevation: 1,
                     color: Color(0xfff7bba9),
                     onPressed: () => {
-                      openMapsSheet(context,27.490368, -109.938906)
+                      launchGoogleMaps(27.490368, -109.938906)
                     },
                     child: Text('Mostrar en el mapa', style: GoogleFonts.lato(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w700)),
                   ),
