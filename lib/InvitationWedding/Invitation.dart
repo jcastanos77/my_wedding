@@ -39,30 +39,6 @@ class _InvitationState extends State<Invitation> {
     }
   }
 
-  static Future<void> launchGoogleMaps(double lat,double lon) async {
-    final uri = Uri(
-        scheme: "google.navigation",
-        // host: '"0,0"',  {here we can put host}
-        queryParameters: {
-          'q': '$lat, $lon'
-        });
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    } else {
-      debugPrint('An error occurred');
-    }
-  }
-
-  openMapsSheet(context, double lat, double lng) async {
-      final coords = Coords(lat, lng);
-      final title = "Bodorrio mayte y jorgais";
-      final availableMaps = await MapLauncher.installedMaps;
-
-      await availableMaps.first.showMarker(
-        coords: Coords(lat, lng),
-        title: title,
-      );
-  }
   @override
   void initState() {
     // TODO: implement initState
@@ -107,9 +83,9 @@ class _InvitationState extends State<Invitation> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Boda", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
-                  Text("Jorge y Mayte", style: GoogleFonts.homemadeApple(color: Colors.white, fontSize: 30),),
-                  Text("29 de marzo del 2025", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
+                  Text("Boda", style: GoogleFonts.raleway(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),),
+                  Text("Jorge y Mayte", style: GoogleFonts.homemadeApple(color: Colors.white, fontSize: 35),),
+                  Text("29 de marzo del 2025", style: GoogleFonts.raleway(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),),
                   SizedBox(height: 24,),
                   Container(
                     height: 200,
@@ -118,16 +94,16 @@ class _InvitationState extends State<Invitation> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.punch_clock_rounded,color: Colors.white),
-                        Text("Dias restantes:", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
+                        Text("Dias restantes:", style: GoogleFonts.raleway(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),),
                         SizedBox(height: 8,),
                         Container(
                           color: Colors.black.withOpacity(.1),
                           height: 100,
                           child: Center(
                             child: TimerCountdown(
-                              timeTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-                              descriptionTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
-                              colonsTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+                              timeTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+                              descriptionTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                              colonsTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                               format: CountDownTimerFormat.daysHoursMinutesSeconds,
                               hoursDescription: "Horas",
                               daysDescription: "Dias",
@@ -169,44 +145,44 @@ class _InvitationState extends State<Invitation> {
                     children: [
                       Column(
                         children: [
-                          Text("Padres novia", style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+                          Text("Padres novia", style: GoogleFonts.raleway(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
                           SizedBox(height: 8,),
-                          Text("Maria Castro Avila", textAlign: TextAlign.center, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800)),
+                          Text("Maria Castro Avila", textAlign: TextAlign.center, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 21, fontWeight: FontWeight.w800)),
                           SizedBox(height: 8,),
-                          Text("Juan Angel Cota", textAlign: TextAlign.center, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800)),
+                          Text("Juan Angel Cota", textAlign: TextAlign.center, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 21, fontWeight: FontWeight.w800)),
                         ],
                       ),
                       SizedBox(width: 24,),
                       Column(
                         children: [
-                          Text("Padres Novio", style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+                          Text("Padres Novio", style: GoogleFonts.raleway(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
                           SizedBox(height: 8,),
-                          Text("Carmen Mayorquin", textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800),),
+                          Text("Carmen Mayorquin", textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 21, fontWeight: FontWeight.w800),),
                           SizedBox(height: 8,),
-                          Text("Jorge Castaños", textAlign: TextAlign.center, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800)),
+                          Text("Jorge Castaños", textAlign: TextAlign.center, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 21, fontWeight: FontWeight.w800)),
                         ],
                       ),
                     ],
                   ),
                   SizedBox(height: 24,),
-                  Text("Nuestros padrinos", style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+                  Text("Nuestros padrinos", style: GoogleFonts.raleway(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
                   SizedBox(height: 8,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Column(
                         children: [
-                          Text("Lorena Flores", textAlign: TextAlign.left,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800),),
+                          Text("Lorena Flores", textAlign: TextAlign.left,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 21, fontWeight: FontWeight.w800),),
                           SizedBox(height: 8,),
-                          Text("Julio Maldonado", textAlign: TextAlign.left, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800)),
+                          Text("Julio Maldonado", textAlign: TextAlign.left, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 21, fontWeight: FontWeight.w800)),
                         ],
                       ),
                       SizedBox(width: 24,),
                       Column(
                         children: [
-                          Text("Marycela Gaxiola", textAlign: TextAlign.left,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800),),
+                          Text("Marycela Gaxiola", textAlign: TextAlign.left,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 21, fontWeight: FontWeight.w800),),
                           SizedBox(height: 8,),
-                          Text("Pedro González", textAlign: TextAlign.left, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800)),
+                          Text("Pedro González", textAlign: TextAlign.left, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 21, fontWeight: FontWeight.w800)),
                         ],
                       )
                     ],
@@ -220,11 +196,11 @@ class _InvitationState extends State<Invitation> {
               child: Column(
                 children: [
                   Icon(Icons.location_on),
-                  Text("Ubicación del evento:", style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+                  Text("Ubicación del evento:", style: GoogleFonts.raleway(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text("La Roca",
-                      textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+                      textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
                   ),
               MaterialButton(
                 elevation: 1,
@@ -232,15 +208,15 @@ class _InvitationState extends State<Invitation> {
                 onPressed: () => {
                   navigateTo(27.553944, -109.926336)
                 },
-                child: Text('Mostrar en el mapa', style: GoogleFonts.lato(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w700),),
+                child: Text('Mostrar en el mapa', style: GoogleFonts.lato(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w700),),
                   ),
                   SizedBox(height: 24,),
                   Icon(Icons.church),
-                  Text("Ceremonia Religiosa:", style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+                  Text("Ceremonia Religiosa:", style: GoogleFonts.raleway(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text("Parroquia de Nuestra Señora de Guadalupe",
-                      textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+                      textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
                   ),
                   MaterialButton(
                     elevation: 1,
@@ -248,7 +224,7 @@ class _InvitationState extends State<Invitation> {
                     onPressed: () => {
                       navigateTo(27.490368, -109.938906)
                     },
-                    child: Text('Mostrar en el mapa', style: GoogleFonts.lato(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w700)),
+                    child: Text('Mostrar en el mapa', style: GoogleFonts.lato(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w700)),
                   ),
                 ],
               ),
@@ -260,8 +236,8 @@ class _InvitationState extends State<Invitation> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(fraseDeNovios, textAlign: TextAlign.center,style: GoogleFonts.homemadeApple(color: Colors.white, fontSize: 20),),
-                  Text("-${nombreNovios}", style: GoogleFonts.raleway(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),),
+                  Text(fraseDeNovios, textAlign: TextAlign.center,style: GoogleFonts.homemadeApple(color: Colors.white, fontSize: 25),),
+                  Text("-${nombreNovios}", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
                 ],),
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(1),
@@ -278,14 +254,12 @@ class _InvitationState extends State<Invitation> {
               child: Column(
                 children: [
                   Icon(Icons.science_rounded),
-                  Text("Codigo de vestimenta:", style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+                  Text("Codigo de vestimenta:", style: GoogleFonts.raleway(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text("Formal",
-                      textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+                      textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
                   ),
-                  Text("Respetuosamente no niños",
-                    textAlign: TextAlign.center,style: GoogleFonts.raleway(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500),),
                 ],
               ),
             ),
@@ -295,11 +269,11 @@ class _InvitationState extends State<Invitation> {
               child: Column(
                 children: [
                   Image.asset("assets/gift.png", height: 18, width: 18),
-                  Text("Sugerencia de regalo:", style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+                  Text("Sugerencia de regalo:", style: GoogleFonts.raleway(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
                   SizedBox(height: 24,),
-                  Text("¡Tu asistencia es lo mas importante!", style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),),
+                  Text("¡Tu asistencia es lo mas importante!", style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),),
                   SizedBox(height: 8,),
-                  Text("Pero si deseas darnos un regalo, agradecemos sea en efectivo.",textAlign: TextAlign.center ,style: GoogleFonts.raleway(color: Colors.black, fontSize: 18, fontWeight: FontWeight.normal),),
+                  Text("Pero si deseas darnos un regalo, agradecemos sea en efectivo.",textAlign: TextAlign.center ,style: GoogleFonts.raleway(color: Colors.black, fontSize: 22, fontWeight: FontWeight.normal),),
                   SizedBox(height: 24,),
                 ],
               ),
@@ -310,7 +284,7 @@ class _InvitationState extends State<Invitation> {
                 children: [
                   SizedBox(height: 24,),
                   Icon(Icons.monochrome_photos, color: Colors.white,),
-                  Text("Nuestros momentos:", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
+                  Text("Nuestros momentos:", style: GoogleFonts.raleway(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),),
                   FanCarouselImageSlider(
                     imagesLink: sampleImages,
                     isAssets: true,
