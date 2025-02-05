@@ -6,6 +6,7 @@ import 'package:my_wedding/SplashWedding.dart';
 import 'package:my_wedding/checkListWedding/CheckListPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_wedding/creatingInvitation/ImageInvitation.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,6 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SafeArea(
         child: Splashwedding(),
       ),
+      /*ImageInvitation(namePerson: "Castaños Samaniego", numPersons: "2")*/
       /*bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Color(0xff000000),
         selectedItemColor:  Color(0xffF9AA33),
