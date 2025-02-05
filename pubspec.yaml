@@ -62,18 +62,25 @@ dev_dependencies:
   flutter_animated_splash: ^0.0.10
   animated_background_view: ^0.0.2
   flutter_launcher_icons: ^0.14.3
+  qr_flutter: ^4.0.0
+  share_plus: ^10.1.4
+  widgets_to_image: ^1.0.0
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
-# The following section is specific to Flutter packages.
+# The following section is specific to Flut packages.
 flutter:
   uses-material-design: true
   assets:
-    - assets/principaImage.jpg
-    - assets/secondImage.jpg
-    - assets/thirdImage.jpg
+    - assets/principaImage.png
+    - assets/thirdImage.png
     - assets/gift.png
-
+    - assets/2.png
+    - assets/3.png
+    - assets/4.png
+    - assets/5.png
+    - assets/6.png
+    - assets/7.png
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true

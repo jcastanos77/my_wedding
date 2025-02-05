@@ -16,7 +16,7 @@ class _InvitationState extends State<Invitation> {
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('invitation').snapshots();
 
   static const List<String> sampleImages = [
-    "assets/principaImage.jpg","assets/secondImage.jpg","assets/thirdImage.jpg","assets/thirdImage.jpg"
+    "assets/2.png","assets/3.png","assets/4.png","assets/5.png","assets/6.png","assets/7.png",
   ];
 
   String nombreNovios = "";
@@ -126,7 +126,7 @@ class _InvitationState extends State<Invitation> {
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(1),
                 image: const DecorationImage(
-                  image: AssetImage('assets/principaImage.jpg'),
+                  image: AssetImage('assets/principaImage.png'),
                   fit: BoxFit.cover,
                 ),
                 border: Border.all(color: Colors.black12, width: 1),
@@ -192,29 +192,15 @@ class _InvitationState extends State<Invitation> {
               width: MediaQuery.of(context).size.width,
               child: Column(
                 children: [
-                  Icon(Icons.location_on),
-                  Text("Ubicación del evento:", style: GoogleFonts.raleway(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text("La Roca",
-                      textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
-                  ),
-              MaterialButton(
-                elevation: 1,
-                color: Color(0xfff7bba9),
-                onPressed: () => {
-                  navigateTo(27.553944, -109.926336)
-                },
-                child: Text('Mostrar en el mapa', style: GoogleFonts.lato(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w700),),
-                  ),
-                  SizedBox(height: 24,),
                   Icon(Icons.church),
                   Text("Ceremonia Religiosa:", style: GoogleFonts.raleway(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text("Parroquia de Nuestra Señora de Guadalupe",
-                      textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
-                  ),
+                  SizedBox(height: 16,),
+                  Text("Parroquia de Nuestra Señora de Guadalupe",
+                    textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
+                  SizedBox(height: 16,),
+                  Text("Hora: 4:00 P.M.",
+                    textAlign: TextAlign.center,style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+                  SizedBox(height: 16,),
                   MaterialButton(
                     elevation: 1,
                     color: Color(0xfff7bba9),
@@ -222,6 +208,24 @@ class _InvitationState extends State<Invitation> {
                       navigateTo(27.490368, -109.938906)
                     },
                     child: Text('Mostrar en el mapa', style: GoogleFonts.lato(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w700)),
+                  ),
+                  SizedBox(height: 24,),
+                  Icon(Icons.location_on),
+                  Text("Ubicación del evento:", style: GoogleFonts.raleway(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
+                  SizedBox(height: 16,),
+                  Text("La Roca",
+                    textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
+                  SizedBox(height: 16,),
+                  Text("Hora: 9:00 P.M.",
+                    textAlign: TextAlign.center,style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+                  SizedBox(height: 16,),
+                  MaterialButton(
+                    elevation: 1,
+                    color: Color(0xfff7bba9),
+                    onPressed: () => {
+                      navigateTo(27.553944, -109.926336)
+                    },
+                    child: Text('Mostrar en el mapa', style: GoogleFonts.lato(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w700),),
                   ),
                 ],
               ),
@@ -233,13 +237,13 @@ class _InvitationState extends State<Invitation> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(fraseDeNovios, textAlign: TextAlign.center,style: GoogleFonts.homemadeApple(color: Colors.white, fontSize: 25),),
-                  Text("-${nombreNovios}", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
+                  Text("El amor se construye todos los dias.", textAlign: TextAlign.center,style: GoogleFonts.homemadeApple(color: Colors.white, fontSize: 25),),
+                  Text("Jorge & Mayte", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
                 ],),
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(1),
                 image: const DecorationImage(
-                  image: AssetImage('assets/thirdImage.jpg'),
+                  image: AssetImage('assets/thirdImage.png'),
                   fit: BoxFit.cover,
                 ),
                 border: Border.all(color: Colors.black12, width: 1),
