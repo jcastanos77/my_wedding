@@ -22,6 +22,11 @@ class _GenerateImageInvitationState extends State<GenerateImageInvitation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor:  Color(0xfff7bba9),
+        elevation: 1,
+        title: Text("Mi invitación", style: GoogleFonts.openSans(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600),),
+      ),
       body: Container(
         child: Column(
           children: [
@@ -32,8 +37,9 @@ class _GenerateImageInvitationState extends State<GenerateImageInvitation> {
                 child: Column(
                   children: <Widget>[
                     TextFormField(
+                      textInputAction: TextInputAction.next,
                       controller: nameInput,
-                      textCapitalization: TextCapitalization.sentences,
+                      textCapitalization: TextCapitalization.words,
                       decoration: InputDecoration(
                           labelText: "Nombre de invitado:"
                       ),
@@ -51,8 +57,8 @@ class _GenerateImageInvitationState extends State<GenerateImageInvitation> {
                     ),
                     SizedBox(height: 8,),
                     TextFormField(
+                      textInputAction: TextInputAction.done,
                       controller: numPersonsInput,
-                      readOnly: true,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           labelText: "Número de personas:"
@@ -75,7 +81,7 @@ class _GenerateImageInvitationState extends State<GenerateImageInvitation> {
               ),
             ),
             ElevatedButton(
-                style: ElevatedButton.styleFrom(),
+                style: ElevatedButton.styleFrom(backgroundColor: Color(0xffd8d87c)),
                 onPressed: () {
                   Alert(
                     context: context,
@@ -85,28 +91,30 @@ class _GenerateImageInvitationState extends State<GenerateImageInvitation> {
                     buttons: [
                       DialogButton(
                         child: Text(
+                          "Crear",
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => ImageInvitation(namePerson: nombrePersona,numPersons: numPersonas,)));
+                          nameInput.clear();
+                          numPersonsInput.clear();
+                        },
+                        width: 120,
+                        color: Colors.black87,
+                      ),
+                      DialogButton(
+                        child: Text(
                           "Cancelar",
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
                         onPressed: () => Navigator.pop(context),
                         width: 120,
                         color: Colors.red,
-                      ),
-                      DialogButton(
-                        child: Text(
-                          "Crear",
-                          style: TextStyle(color: Colors.white, fontSize: 20),
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => ImageInvitation(namePerson: nombrePersona,numPersons: numPersonas,)));
-                        },
-                        width: 120,
-                        color: Colors.black87,
                       )
                     ],
                   ).show();
                 },
-                child: Text("Crea tu nueva aventura", style: GoogleFonts.roboto(fontSize: 15),)
+                child: Text("Crea tu invitación", style: GoogleFonts.roboto(fontSize: 15, color: Colors.white),)
             ),
           ],
         ),

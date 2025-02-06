@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Invitation extends StatefulWidget {
@@ -13,19 +12,10 @@ class Invitation extends StatefulWidget {
 }
 
 class _InvitationState extends State<Invitation> {
-  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('invitation').snapshots();
 
   static const List<String> sampleImages = [
     "assets/2.png","assets/3.png","assets/4.png","assets/5.png","assets/6.png","assets/7.png",
   ];
-
-  String nombreNovios = "";
-  String nombrePadrino = "";
-  String nombreMadrina = "";
-  String fechaBoda = "";
-  String lugarBoda = "";
-  String lugarIglesia = "";
-  String fraseDeNovios = "";
 
   static void navigateTo(double lat, double lng) async {
     var uri = Uri.parse("https://www.google.com/maps/search/?api=1&query=$lat,$lng");
@@ -40,23 +30,6 @@ class _InvitationState extends State<Invitation> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    FirebaseFirestore.instance
-        .collection('invitation')
-        .get()
-        .then((QuerySnapshot querySnapshot) {
-      querySnapshot.docs.forEach((doc) {
-        setState(() {
-          nombreNovios = doc["nombreNovios"];
-          fechaBoda = doc["fechaBoda"];
-          nombrePadrino = doc["nombrePadrino"];
-          nombreMadrina = doc["nombreMadrina"];
-          lugarBoda = doc["lugarBoda"];
-          lugarIglesia = doc["lugarIglesia"];
-          fraseDeNovios = doc["fraseDeNovios"];
-        });
-      });
-    });
-
   }
 
   @override
@@ -291,6 +264,7 @@ class _InvitationState extends State<Invitation> {
                     isAssets: true,
                     indicatorActiveColor: Colors.white,
                     autoPlay: false,
+                    imageFitMode: BoxFit.cover,
                   ),
                   SizedBox(height: 24,),
                 ],
