@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:my_wedding/InvitationWedding/Invitation.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:map_location_picker/map_location_picker.dart';
 
 class CreateInvitation extends StatefulWidget {
@@ -34,7 +30,6 @@ class _CreateInvitationState extends State<CreateInvitation> {
   String lugarIglesia = "";
   String fraseDeNovios = "";
   final _formKey = GlobalKey<FormState>();
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
   late DateFormat dateFormat;
 
   @override
@@ -51,23 +46,6 @@ class _CreateInvitationState extends State<CreateInvitation> {
 
   @override
     Widget build(BuildContext context) {
-    CollectionReference users = FirebaseFirestore.instance.collection('invitation');
-
-    Future<void> createInvitation() {
-      // Call the user's CollectionReference to add a new user
-      return users
-          .add({
-        'nombreNovios': nombreNovios,
-        'nombrePadrino': nombrePadrino,
-        'nombreMadrina': nombreMadrina,
-        'fechaBoda': fechaBoda,
-        'lugarBoda': lugarBoda,
-        'lugarIglesia': lugarIglesia,
-        'fraseDeNovios': fraseDeNovios
-      })
-          .then((value) => Navigator.of(context).push(MaterialPageRoute(builder: (context) => Invitation())))
-          .catchError((error) => print("Failed to add user: $error"));
-    }
 
     return  Scaffold(
           backgroundColor: Colors.white10,
@@ -273,38 +251,6 @@ class _CreateInvitationState extends State<CreateInvitation> {
                     ],
                 ),
                   ),
-                ),
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(),
-                    onPressed: () {
-                      Alert(
-                        context: context,
-                        type: AlertType.success,
-                        title: "Crear invitación",
-                        desc: "¿Estas seguro de crear la invitación?",
-                        buttons: [
-                          DialogButton(
-                            child: Text(
-                              "Cancelar",
-                              style: TextStyle(color: Colors.white, fontSize: 20),
-                            ),
-                            onPressed: () => Navigator.pop(context),
-                            width: 120,
-                            color: Colors.red,
-                          ),
-                          DialogButton(
-                            child: Text(
-                              "Crear",
-                              style: TextStyle(color: Colors.white, fontSize: 20),
-                            ),
-                            onPressed: () => createInvitation(),
-                            width: 120,
-                            color: Colors.black87,
-                          )
-                        ],
-                      ).show();
-                    },
-                    child: Text("Crea tu nueva aventura", style: GoogleFonts.roboto(fontSize: 15),)
                 ),
                 SizedBox(height: 24,),
 

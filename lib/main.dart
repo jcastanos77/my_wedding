@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_wedding/InvitationWedding/CreateInvitation.dart';
-import 'package:my_wedding/InvitationWedding/Invitation.dart';
 import 'package:my_wedding/SplashWedding.dart';
 import 'package:my_wedding/checkListWedding/CheckListPage.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:my_wedding/creatingInvitation/ImageInvitation.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'creatingInvitation/GenerateImageInvitation.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: const FirebaseOptions(
-      apiKey: "AIzaSyAYd8--mfLCjQMSFwrIINp-mLNQZjwHpic",
-      appId: "1:870428658400:web:bf43292a4aa4b094705e85",
-      messagingSenderId: "870428658400",
-      projectId: "my-wedding-402918"));
   runApp(ProviderScope(child: MyApp()));
 }
 
@@ -61,6 +55,13 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: SafeArea(
         child: Splashwedding(),
+      ),
+      floatingActionButton: kIsWeb ? Container():FloatingActionButton(
+        backgroundColor: const Color.fromRGBO(82, 170, 94, 1.0),
+        onPressed: (){
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => GenerateImageInvitation()));
+        },
+        child: const Icon(Icons.add, color: Colors.white, size: 28),
       ),
       /*ImageInvitation(namePerson: "Castaños Samaniego", numPersons: "2")*/
       /*bottomNavigationBar: BottomNavigationBar(
