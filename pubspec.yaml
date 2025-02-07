@@ -63,6 +63,9 @@ dev_dependencies:
   qr_flutter: ^4.0.0
   share_plus: ^10.1.4
   widgets_to_image: ^1.0.0
+  image_picker: ^1.1.2
+  firebase_storage: ^12.4.2
+  galleryimage: ^2.0.1
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -79,6 +82,8 @@ flutter:
     - assets/5.png
     - assets/6.png
     - assets/7.png
+    - assets/imagePlant.png
+    - assets/iconJm.png
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true

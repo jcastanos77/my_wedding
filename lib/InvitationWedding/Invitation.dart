@@ -55,6 +55,7 @@ class _InvitationState extends State<Invitation> {
                 children: [
                   Text("Boda", style: GoogleFonts.raleway(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),),
                   Text("Jorge y Mayte", style: GoogleFonts.homemadeApple(color: Colors.white, fontSize: 35),),
+                  SizedBox(height: 24,),
                   Text("29 de marzo del 2025", style: GoogleFonts.raleway(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),),
                   SizedBox(height: 24,),
                   Container(
@@ -117,7 +118,7 @@ class _InvitationState extends State<Invitation> {
                         children: [
                           Text("Padres novia", style: GoogleFonts.raleway(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
                           SizedBox(height: 8,),
-                          Text("Maria Castro Avila", textAlign: TextAlign.center, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 21, fontWeight: FontWeight.w800)),
+                          Text("Ma. Teresa Castro Avila", textAlign: TextAlign.center, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 21, fontWeight: FontWeight.w800)),
                           SizedBox(height: 8,),
                           Text("Juan Angel Cota", textAlign: TextAlign.center, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 21, fontWeight: FontWeight.w800)),
                         ],
@@ -142,17 +143,17 @@ class _InvitationState extends State<Invitation> {
                     children: [
                       Column(
                         children: [
-                          Text("Lorena Flores", textAlign: TextAlign.left,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 21, fontWeight: FontWeight.w800),),
+                          Text("Marycela Gaxiola", textAlign: TextAlign.left,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 21, fontWeight: FontWeight.w800),),
                           SizedBox(height: 8,),
-                          Text("Julio Maldonado", textAlign: TextAlign.left, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 21, fontWeight: FontWeight.w800)),
+                          Text("Pedro González", textAlign: TextAlign.left, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 21, fontWeight: FontWeight.w800)),
                         ],
                       ),
                       SizedBox(width: 24,),
                       Column(
                         children: [
-                          Text("Marycela Gaxiola", textAlign: TextAlign.left,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 21, fontWeight: FontWeight.w800),),
+                          Text("Lorena Flores", textAlign: TextAlign.left,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 21, fontWeight: FontWeight.w800),),
                           SizedBox(height: 8,),
-                          Text("Pedro González", textAlign: TextAlign.left, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 21, fontWeight: FontWeight.w800)),
+                          Text("Julio Maldonado", textAlign: TextAlign.left, style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 21, fontWeight: FontWeight.w800)),
                         ],
                       )
                     ],

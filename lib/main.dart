@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_wedding/Gallery/Gallery.dart';
 import 'package:my_wedding/InvitationWedding/CreateInvitation.dart';
 import 'package:my_wedding/SplashWedding.dart';
 import 'package:my_wedding/checkListWedding/CheckListPage.dart';
@@ -56,13 +57,23 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SafeArea(
         child: Splashwedding(),
       ),
-      floatingActionButton: kIsWeb ? Container():FloatingActionButton(
-        backgroundColor: const Color.fromRGBO(82, 170, 94, 1.0),
-        onPressed: (){
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => GenerateImageInvitation()));
-        },
-        child: const Icon(Icons.add, color: Colors.white, size: 28),
-      ),
+      persistentFooterButtons: [
+        kIsWeb ? Container():FloatingActionButton(
+          backgroundColor: Color(0xfff7bba9),
+          onPressed: (){
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => GenerateImageInvitation()));
+          },
+          child: const Icon(Icons.add, color: Colors.white, size: 28),
+        ),
+        FloatingActionButton(
+          backgroundColor: Color(0xfff7bba9),
+          onPressed: (){
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => Gallery()));
+          },
+          child: const Icon(Icons.photo, color: Colors.white, size: 28),
+        )
+      ],
+
       /*ImageInvitation(namePerson: "Castaños Samaniego", numPersons: "2")*/
       /*bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Color(0xff000000),

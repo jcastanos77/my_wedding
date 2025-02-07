@@ -23,7 +23,7 @@ class _ImageInvitationState extends State<ImageInvitation> {
   Widget build(BuildContext context) {
     double width = MediaQuery.sizeOf(context).width;
     double height = MediaQuery.sizeOf(context).height;
-    Color colorPrincipal = Color(0xffd8d87c);
+    Color colorPrincipal = Colors.black;
 
     return Scaffold(
       appBar: AppBar(
@@ -39,17 +39,17 @@ class _ImageInvitationState extends State<ImageInvitation> {
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Card(
-                  color: Colors.white,
                   child: Container(
                     child: Column(
                       children: [
-                        Text("Invitación", style: GoogleFonts.imperialScript(fontSize: 60, fontWeight: FontWeight.w500, color: colorPrincipal),),
-                        SizedBox(height: 30,),
+                        SizedBox(height: 16,),
+                        Image.asset("assets/iconJm.png", height: 55, width: 160, fit: BoxFit.fill, filterQuality: FilterQuality.high,),
+                        SizedBox(height: 20,),
                         Row(
                           children: <Widget>[
                             RotatedBox(
                               quarterTurns: -1,
-                              child: Text("Jorge & Mayte", style: GoogleFonts.lexend(fontSize: 30, fontWeight: FontWeight.w300, color: colorPrincipal),),
+                              child: Text("Mayte & Jorge", style: GoogleFonts.alice(fontSize: 30, fontWeight: FontWeight.w300, color: colorPrincipal, letterSpacing: 1.5),),
                             ),
                             Expanded(child: Text("")),
                             QrImageView(
@@ -60,18 +60,20 @@ class _ImageInvitationState extends State<ImageInvitation> {
                             Expanded(child: Text("")),
                             RotatedBox(
                               quarterTurns: 1,
-                              child: Text("Jorge & Mayte", style: GoogleFonts.lexend(fontSize: 30, fontWeight: FontWeight.w300, color: colorPrincipal),),
+                              child: Text("Mayte & Jorge", style: GoogleFonts.alice(fontSize: 30, fontWeight: FontWeight.w300, color: colorPrincipal, letterSpacing: 1.5),),
                             ),
                           ],
                         ),
-                        SizedBox(height: 20,),
+                        SizedBox(height: 15,),
                         Column(
                           children: [
-                            Text("Para: " + widget.namePerson, style: GoogleFonts.lexend(fontSize: 20, fontWeight: FontWeight.w300, color: colorPrincipal)),
-                            Text("Personas: " + widget.numPersons, style: GoogleFonts.lexend(fontSize: 20, fontWeight: FontWeight.w300, color: colorPrincipal)),
-                            Text("29/03/2025", style: GoogleFonts.lexend(fontSize: 20, fontWeight: FontWeight.w300, color: colorPrincipal)),
+                            Text("PARA: " + widget.namePerson.toUpperCase(), style: GoogleFonts.alice(fontSize: 16, fontWeight: FontWeight.w300, color: colorPrincipal)),
+                            Text("NÚMERO DE PERSONAS: " + widget.numPersons, style: GoogleFonts.alice(fontSize: 16, fontWeight: FontWeight.w300, color: colorPrincipal)),
+                            SizedBox(height: 16,),
+                            Text("29 DE MARZO DEL 2025", style: GoogleFonts.alice(fontSize: 16, fontWeight: FontWeight.w300, color: colorPrincipal)),
                           ],
-                        )
+                        ),
+                        SizedBox(height: 16,),
                       ],
                     ),
                   ),
@@ -86,7 +88,6 @@ class _ImageInvitationState extends State<ImageInvitation> {
                   style: ElevatedButton.styleFrom(backgroundColor: colorPrincipal),
                   onPressed: () async{
                     final byte = await controller.capture();
-                    Uint8List? list = byte?.buffer.asUint8List();
                     Share.shareXFiles([XFile.fromData(byte!, mimeType: "image/png")], text: "Invitación de " + widget.namePerson);
               }, child: Text("Compartir invitación", style: GoogleFonts.roboto(fontSize: 20, color: Colors.white))),
             )
