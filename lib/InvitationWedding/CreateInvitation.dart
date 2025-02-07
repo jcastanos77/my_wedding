@@ -119,64 +119,6 @@ class _CreateInvitationState extends State<CreateInvitation> {
                         },
                       ),
                       SizedBox(height: 8,),
-                      PlacesAutocomplete(
-                        left: false,
-                        right: false,
-                        bottom: false,
-                        region: 'MX',
-                        topCardColor: Colors.white,
-                        topCardShape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(0)),
-                        ),
-                        showClearButton: false,
-                        top: false,
-                        topCardMargin:  EdgeInsets.all(0),
-                        borderRadius: BorderRadius.all(Radius.circular(0)),
-                        decoration: InputDecoration(
-                            labelText: "Lugar de boda:"
-                        ),
-                        searchController: lugarBodaInput,
-                        apiKey: 'AIzaSyAYd8--mfLCjQMSFwrIINp-mLNQZjwHpic',
-                        mounted: mounted,
-                        hideBackButton: true,
-                        onGetDetailsByPlaceId: (PlacesDetailsResponse? result) {
-                          if (result != null) {
-                            setState(() {
-                              autocompletePlace = result.result.formattedAddress ?? "";
-                            });
-                          }
-                        },
-                      ),
-                      SizedBox(height: 8,),
-                      PlacesAutocomplete(
-                        left: false,
-                        right: false,
-                        bottom: false,
-                        region: 'MX',
-                        topCardColor: Colors.white,
-                        topCardShape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(0)),
-                        ),
-                        showClearButton: false,
-                        top: false,
-                        topCardMargin:  EdgeInsets.all(0),
-                        borderRadius: BorderRadius.all(Radius.circular(0)),
-                        decoration: InputDecoration(
-                            labelText: "Lugar de iglesia:"
-                        ),
-                        searchController: lugarIglesiaInput,
-                        apiKey: 'AIzaSyAYd8--mfLCjQMSFwrIINp-mLNQZjwHpic',
-                        mounted: mounted,
-                        hideBackButton: true,
-                        onGetDetailsByPlaceId: (PlacesDetailsResponse? result) {
-                          if (result != null) {
-                            setState(() {
-                              autocompletePlace = result.result.formattedAddress ?? "";
-                            });
-                          }
-                        },
-                      ),
-                      SizedBox(height: 8,),
                       TextFormField(
                         decoration: InputDecoration(
                             labelText: "Nombres papas novia:"
