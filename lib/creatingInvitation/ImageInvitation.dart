@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -53,7 +52,7 @@ class _ImageInvitationState extends State<ImageInvitation> {
                             ),
                             Expanded(child: Text("")),
                             QrImageView(
-                              data: 'https://my-wedding-git-main-jcastanos77s-projects.vercel.app/',
+                              data: 'https://myweddingjm.fyi/',
                               version: QrVersions.auto,
                               size: 250.0,
                             ),

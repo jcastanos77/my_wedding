@@ -3,6 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:my_wedding/SplashWedding.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'Gallery/Gallery.dart';
+import 'InvitationWedding/GuestsList.dart';
+import 'creatingInvitation/GenerateImageInvitation.dart';
+import 'package:animated_floating_buttons/animated_floating_buttons.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,6 +45,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final GlobalKey<AnimatedFloatingActionButtonState> key =GlobalKey<AnimatedFloatingActionButtonState>();
 
   @override
   Widget build(BuildContext context) {
@@ -51,22 +57,37 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: SafeArea(
         child: Splashwedding(),
-      ),
-      /*persistentFooterButtons: [
-        kIsWeb ? FloatingActionButton(
-          backgroundColor: Color(0xfff7bba9),
-          onPressed: (){
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => Gallery()));
-          },
-          child: const Icon(Icons.photo, color: Colors.white, size: 28),
-        ): FloatingActionButton(
-          backgroundColor: Color(0xfff7bba9),
-          onPressed: (){
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => GenerateImageInvitation()));
-          },
-          child: const Icon(Icons.add, color: Colors.white, size: 28),
-        )
-      ],*/
+      ), floatingActionButton: kIsWeb ? FloatingActionButton(
+      backgroundColor: Color(0xfff7bba9),
+      onPressed: (){
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => Gallery()));
+      },
+      child: const Icon(Icons.photo, color: Colors.white, size: 28),
+      heroTag: '3',
+    ): AnimatedFloatingActionButton(
+      //Fab list
+        fabButtons: <Widget>[
+       FloatingActionButton(
+             onPressed: (){
+               Navigator.of(context).push(MaterialPageRoute(builder: (context) => Guestslist()));
+             },
+         heroTag: '1',
+             child: Icon(Icons.list_alt_outlined),
+        ),
+          FloatingActionButton(
+            backgroundColor: Color(0xfff7bba9),
+            heroTag: '2',
+            onPressed: (){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => GenerateImageInvitation()));
+            },
+            child: const Icon(Icons.add, color: Colors.white, size: 28),
+          )
+        ],
+        key : key,
+        colorStartAnimation: Color(0xfff7bba9),
+        colorEndAnimation: Color(0xfff7bba9),
+        animatedIconData: AnimatedIcons.menu_close,
+    ),
     );
   }
 }
