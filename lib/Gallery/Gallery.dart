@@ -22,10 +22,11 @@ class _GalleryState extends State<Gallery> {
     setState(() {
       _image = image!;
     });
+    upLoadImage();
   }
 
   upLoadImage(){
-    /*FirebaseStorage storage = FirebaseStorage.instance;
+   /* FirebaseStorage storage = FirebaseStorage.instance;
 
     //Create a reference to the location you want to upload to in firebase
     StorageReference reference =
@@ -78,9 +79,7 @@ class _GalleryState extends State<Gallery> {
         ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xfff7bba9),
-        onPressed: (){
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => Gallery()));
-        },
+        onPressed: getImage,
         child: const Icon(Icons.drive_folder_upload, color: Colors.white, size: 28),
       ),
     );
