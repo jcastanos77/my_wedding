@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class ConfirmarInvitacion extends StatefulWidget {
   const ConfirmarInvitacion({Key? key}) : super(key: key);

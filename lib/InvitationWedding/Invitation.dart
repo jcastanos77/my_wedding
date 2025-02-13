@@ -4,7 +4,6 @@ import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
 import 'package:my_wedding/creatingInvitation/ConfirmarInvitacion.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 
 class Invitation extends StatefulWidget {
   const Invitation({Key? key}) : super(key: key);
@@ -187,13 +186,20 @@ class _InvitationState extends State<Invitation> {
                   ),
                   SizedBox(height: 24,),
                   Icon(Icons.location_on),
-                  Text("Ubicación del evento:", style: GoogleFonts.raleway(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
+                  Text("Evento Social:", style: GoogleFonts.raleway(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
                   SizedBox(height: 16,),
                   Text("La Roca",
                     textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
                   SizedBox(height: 16,),
-                  Text("Hora: 9:00 P.M.",
+                  Text("Ceremonia Civil",
                     textAlign: TextAlign.center,style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+                  Text("Hora: 8:00 P.M.",
+                    textAlign: TextAlign.center,style: GoogleFonts.raleway(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),),
+                  SizedBox(height: 16,),
+                  Text("Evento",
+                    textAlign: TextAlign.center,style: GoogleFonts.raleway(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+                  Text("Hora: 9:00 P.M.",
+                    textAlign: TextAlign.center,style: GoogleFonts.raleway(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),),
                   SizedBox(height: 16,),
                   MaterialButton(
                     elevation: 1,
@@ -214,6 +220,7 @@ class _InvitationState extends State<Invitation> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("El amor se construye todos los dias.", textAlign: TextAlign.center,style: GoogleFonts.homemadeApple(color: Colors.white, fontSize: 25),),
+                  SizedBox(height: 16,),
                   Text("Jorge & Mayte", style: GoogleFonts.raleway(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
                 ],),
               decoration: BoxDecoration(
@@ -234,7 +241,7 @@ class _InvitationState extends State<Invitation> {
                   Text("Codigo de vestimenta:", style: GoogleFonts.raleway(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Text("Formal",
+                    child: Text("Formal con tenis",
                       textAlign: TextAlign.center,style: GoogleFonts.dancingScript(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
                   ),
                 ],
