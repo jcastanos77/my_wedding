@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
+import 'package:my_wedding/creatingInvitation/ConfirmarInvitacion.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 
 class Invitation extends StatefulWidget {
   const Invitation({Key? key}) : super(key: key);
@@ -14,7 +16,7 @@ class Invitation extends StatefulWidget {
 class _InvitationState extends State<Invitation> {
 
   static const List<String> sampleImages = [
-    "assets/2.png","assets/3.png","assets/4.png","assets/5.png","assets/6.png","assets/7.png",
+    "assets/2.jpeg","assets/3.jpeg","assets/4.jpeg","assets/5.jpeg","assets/6.jpeg",
   ];
 
   static void navigateTo(double lat, double lng) async {
@@ -24,12 +26,6 @@ class _InvitationState extends State<Invitation> {
     } else {
       throw 'Could not launch ${uri.toString()}';
     }
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
   }
 
   @override
@@ -44,6 +40,12 @@ class _InvitationState extends State<Invitation> {
     int seconds = difference.inSeconds % 60;
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black,
+        child: Icon(Icons.insert_invitation, color: Colors.white,),
+        onPressed: (){
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => ConfirmarInvitacion()));
+      },),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -100,7 +102,7 @@ class _InvitationState extends State<Invitation> {
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(1),
                 image: const DecorationImage(
-                  image: AssetImage('assets/principaImage.png'),
+                  image: AssetImage('assets/principaImage.jpeg'),
                   fit: BoxFit.cover,
                 ),
                 border: Border.all(color: Colors.black12, width: 1),
@@ -217,7 +219,7 @@ class _InvitationState extends State<Invitation> {
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(1),
                 image: const DecorationImage(
-                  image: AssetImage('assets/thirdImage.png'),
+                  image: AssetImage('assets/thirdImage.jpeg'),
                   fit: BoxFit.cover,
                 ),
                 border: Border.all(color: Colors.black12, width: 1),
@@ -266,6 +268,7 @@ class _InvitationState extends State<Invitation> {
                     indicatorActiveColor: Colors.white,
                     autoPlay: false,
                     imageFitMode: BoxFit.cover,
+                    isClickable: false,
                   ),
                   SizedBox(height: 24,),
                 ],
