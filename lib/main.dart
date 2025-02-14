@@ -4,19 +4,15 @@ import 'package:my_wedding/SplashWedding.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'Gallery/Gallery.dart';
 import 'InvitationWedding/GuestsList.dart';
 import 'creatingInvitation/GenerateImageInvitation.dart';
 import 'package:animated_floating_buttons/animated_floating_buttons.dart';
+import 'firebase_options.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: FirebaseOptions(
-        apiKey: "AIzaSyAYd8--mfLCjQMSFwrIINp-mLNQZjwHpic",
-        appId: "1:870428658400:web:bf43292a4aa4b094705e85",
-        messagingSenderId: "870428658400",
-        projectId: "my-wedding-402918"),
+    options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(ProviderScope(child: MyApp()));
 }
@@ -54,17 +50,17 @@ class _MyHomePageState extends State<MyHomePage> {
       statusBarBrightness: Brightness.light,
     ));
 
+    DateTime dt1 = DateTime.now();
+    DateTime dt2 = DateTime.parse("2025-02-13");
+
+    if(dt1.isAtSameMomentAs(dt2)){
+      print("Both date time are at same moment.");
+    }
+
     return Scaffold(
       body: SafeArea(
         child: Splashwedding(),
-      ), floatingActionButton: kIsWeb ? FloatingActionButton(
-      backgroundColor: Color(0xfff7bba9),
-      onPressed: (){
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => Gallery()));
-      },
-      child: const Icon(Icons.photo, color: Colors.white, size: 28),
-      heroTag: '3',
-    ): AnimatedFloatingActionButton(
+      ), floatingActionButton: kIsWeb ? Container() : AnimatedFloatingActionButton(
       //Fab list
         fabButtons: <Widget>[
        FloatingActionButton(

@@ -1,12 +1,1 @@
-{
-  "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
-  },
-  "storage": {
-    "rules": "storage.rules"
-  },
-  "database": {
-    "rules": "database.rules.json"
-  }
-}
+{"firestore":{"rules":"firestore.rules","indexes":"firestore.indexes.json"},"storage":{"rules":"storage.rules"},"database":{"rules":"database.rules.json"},"flutter":{"platforms":{"android":{"default":{"projectId":"my-wedding-402918","appId":"1:870428658400:android:91b2558ae90d217d705e85","fileOutput":"android/app/google-services.json"}},"ios":{"default":{"projectId":"my-wedding-402918","appId":"1:870428658400:ios:f27a5f87367b1e14705e85","uploadDebugSymbols":false,"fileOutput":"ios/Runner/GoogleService-Info.plist"}},"dart":{"lib/firebase_options.dart":{"projectId":"my-wedding-402918","configurations":{"android":"1:870428658400:android:91b2558ae90d217d705e85","ios":"1:870428658400:ios:f27a5f87367b1e14705e85","web":"1:870428658400:web:bf43292a4aa4b094705e85"}}}}}}

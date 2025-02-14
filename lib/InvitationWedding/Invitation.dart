@@ -5,6 +5,8 @@ import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
 import 'package:my_wedding/creatingInvitation/ConfirmarInvitacion.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../Gallery/Gallery.dart';
+
 class Invitation extends StatefulWidget {
   const Invitation({Key? key}) : super(key: key);
 
@@ -13,7 +15,7 @@ class Invitation extends StatefulWidget {
 }
 
 class _InvitationState extends State<Invitation> {
-
+  bool isWeddingDay = false;
   static const List<String> sampleImages = [
     "assets/2.jpeg","assets/3.jpeg","assets/4.jpeg","assets/5.jpeg","assets/6.jpeg",
   ];
@@ -39,9 +41,17 @@ class _InvitationState extends State<Invitation> {
     int seconds = difference.inSeconds % 60;
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: isWeddingDay ? FloatingActionButton(
         backgroundColor: Colors.black,
-        child: Icon(Icons.insert_invitation, color: Colors.white,),
+        onPressed: (){
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => Gallery()));
+        },
+        child: const Icon(Icons.photo, color: Colors.white, size: 28),
+        heroTag: '3',
+      ) : FloatingActionButton(
+        heroTag: '2',
+        backgroundColor: Colors.black,
+        child: Icon(Icons.insert_invitation, color: Colors.white, size: 28),
         onPressed: (){
         Navigator.of(context).push(MaterialPageRoute(builder: (context) => ConfirmarInvitacion()));
       },),
@@ -90,6 +100,9 @@ class _InvitationState extends State<Invitation> {
                               ),
                               onEnd: () {
                                 print("Timer finished");
+                                setState(() {
+                                  isWeddingDay = true;
+                                });
                               },
                             ),
                           ),
