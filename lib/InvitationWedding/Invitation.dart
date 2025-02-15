@@ -17,7 +17,7 @@ class Invitation extends StatefulWidget {
 class _InvitationState extends State<Invitation> {
   bool isWeddingDay = false;
   static const List<String> sampleImages = [
-    "assets/2.jpeg","assets/3.jpeg","assets/4.jpeg","assets/5.jpeg","assets/6.jpeg",
+    "assets/2.jpeg","assets/3.jpeg","assets/4.jpeg","assets/9.JPG","assets/8.JPG",
   ];
 
   static void navigateTo(double lat, double lng) async {

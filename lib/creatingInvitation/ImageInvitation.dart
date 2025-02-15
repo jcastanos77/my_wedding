@@ -21,7 +21,6 @@ class _ImageInvitationState extends State<ImageInvitation> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.sizeOf(context).width;
-    double height = MediaQuery.sizeOf(context).height;
     Color colorPrincipal = Colors.black;
 
     return Scaffold(

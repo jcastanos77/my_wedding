@@ -19,6 +19,7 @@ class _ConfirmarInvitacionState extends State<ConfirmarInvitacion> {
   String celNumber = "";
   String nombrePersona = "";
   bool selectedOption = true;
+  String selectedOptionPerson = "novia";
 
   @override
   Widget build(BuildContext context) {
@@ -87,8 +88,37 @@ class _ConfirmarInvitacionState extends State<ConfirmarInvitacion> {
                     ),
                   ),
                 ),
+                Text("¿A quien acompaña?", style: GoogleFonts.roboto(fontWeight: FontWeight.w600, fontSize: 18),),
+                SizedBox(height: 8,),
                 ListTile(
-                  title: const Text('Asistire'),
+                  title: Text('Novia 👰',  style: GoogleFonts.roboto(fontWeight: FontWeight.w400, fontSize: 16)),
+                  leading: Radio<String>(
+                    value: 'novia',
+                    groupValue: selectedOptionPerson,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedOptionPerson = value!;
+                      });
+                    },
+                  ),
+                ),
+                ListTile(
+                  title: Text('Novio 🤵', style: GoogleFonts.roboto(fontWeight: FontWeight.w400, fontSize: 16)),
+                  leading: Radio<String>(
+                    value: 'novio',
+                    groupValue: selectedOptionPerson,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedOptionPerson = value!;
+                      });
+                    },
+                  ),
+                ),
+                SizedBox(height: 24,),
+                Text("¿Podrán asistir a nuestra boda?", style: GoogleFonts.roboto(fontWeight: FontWeight.w600, fontSize: 18)),
+                SizedBox(height: 8,),
+                ListTile(
+                  title: const Text('Asistire 😌'),
                   leading: Radio<bool>(
                     value: true,
                     groupValue: selectedOption,
@@ -100,7 +130,7 @@ class _ConfirmarInvitacionState extends State<ConfirmarInvitacion> {
                   ),
                 ),
                 ListTile(
-                  title: const Text('No podre asistir'),
+                  title: const Text('No podre asistir 😔'),
                   leading: Radio<bool>(
                     value: false,
                     groupValue: selectedOption,
@@ -121,16 +151,18 @@ class _ConfirmarInvitacionState extends State<ConfirmarInvitacion> {
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xffd8d87c)),
                       onPressed: () {
-                        showAlertDialog(context);
-                        var isLoadingFuture = Future.delayed(const Duration(seconds: 3), () {
-                          return false;
-                        });
-                        isLoadingFuture.then((response) {
-                          setState(() {
-                            addUser();
-                            Navigator.of(context).pop();
+                        if (!celNumber.isEmpty && !nameInput.text.isEmpty) {
+                          showAlertDialog(context);
+                          var isLoadingFuture = Future.delayed(const Duration(seconds: 3), () {
+                            return false;
                           });
-                        });
+                          isLoadingFuture.then((response) {
+                            setState(() {
+                              addUser();
+                              Navigator.of(context).pop();
+                            });
+                          });
+                        }
 
                       },
                       child: Text(
@@ -149,7 +181,7 @@ class _ConfirmarInvitacionState extends State<ConfirmarInvitacion> {
       content: Row(
         children: [
           CircularProgressIndicator(),
-          Container(margin: EdgeInsets.only(left: 5),child:Text("Caragando..." )),
+          Container(margin: EdgeInsets.only(left: 5),child:Text("Cargando..." )),
         ],),
     );
     showDialog(barrierDismissible: false,
@@ -165,7 +197,8 @@ class _ConfirmarInvitacionState extends State<ConfirmarInvitacion> {
         .add({
       'full_name': nombrePersona,
       'number': celNumber,
-      'asiste': selectedOption
+      'asiste': selectedOption,
+      'acompana': selectedOptionPerson
     })
         .then((value) => Navigator.of(context).pop() )
         .catchError((error) => print("Failed to add user: $error"));
