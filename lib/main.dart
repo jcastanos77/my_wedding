@@ -50,13 +50,6 @@ class _MyHomePageState extends State<MyHomePage> {
       statusBarBrightness: Brightness.light,
     ));
 
-    DateTime dt1 = DateTime.now();
-    DateTime dt2 = DateTime.parse("2025-02-13");
-
-    if(dt1.isAtSameMomentAs(dt2)){
-      print("Both date time are at same moment.");
-    }
-
     return Scaffold(
       body: SafeArea(
         child: Splashwedding(),

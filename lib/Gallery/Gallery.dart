@@ -1,9 +1,9 @@
-import 'dart:io';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:galleryimage/galleryimage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class Gallery extends StatefulWidget {
   const Gallery({Key? key}) : super(key: key);
@@ -14,6 +14,35 @@ class Gallery extends StatefulWidget {
 
 class _GalleryState extends State<Gallery> {
   late XFile _image;
+  List<String> imageUrls = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchImages();
+  }
+
+  Future<void> fetchImages() async {
+    List<String> urls = [];
+    try {
+      // Referencia a la carpeta "images" en Firebase Storage
+      final ListResult result = await FirebaseStorage.instance.ref("images").listAll();
+      print('result: $result');
+      // Obtener la URL de cada imagen
+      for (var ref in result.items) {
+        String url = await ref.getDownloadURL();
+        print('urls: $url');
+        urls.add(url);
+      }
+
+      setState(() {
+        imageUrls = urls;
+      });
+    } catch (e) {
+      print("Error al obtener imágenes: $e");
+    }
+  }
+
 
   Future getImage() async {
     final ImagePicker picker = ImagePicker();
@@ -25,42 +54,24 @@ class _GalleryState extends State<Gallery> {
     upLoadImage();
   }
 
-  upLoadImage(){
-   /* FirebaseStorage storage = FirebaseStorage.instance;
+  Future<void> upLoadImage() async {
+    try {
+      Uint8List imageBytes = await _image.readAsBytes();
+      String fileName = _image.name;
 
-    //Create a reference to the location you want to upload to in firebase
-    StorageReference reference =
-    storage.ref().child("profileImages/${user.id}");
+      // 3. Subir la imagen a Firebase Storage
+      Reference storageRef = FirebaseStorage.instance.ref().child('images/$fileName');
+      UploadTask uploadTask = storageRef.putData(imageBytes);
 
-    //Upload the file to firebase
-    StorageUploadTask uploadTask = reference.putFile(_image);
+      // 4. Obtener la URL de la imagen subida
+      TaskSnapshot snapshot = await uploadTask;
+      String downloadUrl = await snapshot.ref.getDownloadURL();
 
-    StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
-
-    // Waits till the file is uploaded then stores the download url
-    String url = await taskSnapshot.ref.getDownloadURL();*/
+      print('Imagen subida con éxito: $downloadUrl');
+    } catch (e) {
+      print('Error al subir la imagen: $e');
+    }
   }
-
-  List<String> listOfUrls= [
-    "https://cosmosmagazine.com/wp-content/uploads/2020/02/191010_nature.jpg",
-    "https://scx2.b-cdn.net/gfx/news/hires/2019/2-nature.jpg",
-    "https://isha.sadhguru.org/blog/wp-content/uploads/2016/05/natures-temples.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/7/77/Big_Nature_%28155420955%29.jpeg",
-    "https://s23574.pcdn.co/wp-content/uploads/Singular-1140x703.jpg",
-    "https://www.expatica.com/app/uploads/sites/9/2017/06/Lake-Oeschinen-1200x675.jpg",
-    "https://cosmosmagazine.com/wp-content/uploads/2020/02/191010_nature.jpg",
-    "https://scx2.b-cdn.net/gfx/news/hires/2019/2-nature.jpg",
-    "https://isha.sadhguru.org/blog/wp-content/uploads/2016/05/natures-temples.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/7/77/Big_Nature_%28155420955%29.jpeg",
-    "https://s23574.pcdn.co/wp-content/uploads/Singular-1140x703.jpg",
-    "https://www.expatica.com/app/uploads/sites/9/2017/06/Lake-Oeschinen-1200x675.jpg",
-    "https://cosmosmagazine.com/wp-content/uploads/2020/02/191010_nature.jpg",
-    "https://scx2.b-cdn.net/gfx/news/hires/2019/2-nature.jpg",
-    "https://isha.sadhguru.org/blog/wp-content/uploads/2016/05/natures-temples.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/7/77/Big_Nature_%28155420955%29.jpeg",
-    "https://s23574.pcdn.co/wp-content/uploads/Singular-1140x703.jpg",
-    "https://www.expatica.com/app/uploads/sites/9/2017/06/Lake-Oeschinen-1200x675.jpg",
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -70,12 +81,12 @@ class _GalleryState extends State<Gallery> {
         elevation: 1,
         title: Text("Galleria", style: GoogleFonts.roboto(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600),),
       ),
-        body: SingleChildScrollView(
-          child: GalleryImage(
-            imageUrls: listOfUrls,
-            numOfShowImages: listOfUrls.length,
-            titleGallery: "Boda Jorge & Mayte",
-          ),
+        body: imageUrls.isEmpty
+            ? Center(child: CircularProgressIndicator())
+            :  GalleryImage(
+          imageUrls: imageUrls,
+          numOfShowImages: imageUrls.length,
+          titleGallery: "Boda Jorge & Mayte",
         ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xfff7bba9),

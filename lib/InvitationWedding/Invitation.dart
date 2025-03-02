@@ -31,7 +31,7 @@ class _InvitationState extends State<Invitation> {
 
   @override
   Widget build(BuildContext context) {
-    DateTime a = DateTime(2025,3,29,16,00);
+    DateTime a = DateTime(2025,3,29,07,00);
     DateTime b = DateTime.now();
     Duration difference = a.difference(b);
 
@@ -39,6 +39,19 @@ class _InvitationState extends State<Invitation> {
     int hours = difference.inHours % 24;
     int minutes = difference.inMinutes % 60;
     int seconds = difference.inSeconds % 60;
+
+    DateTime dt1 = DateTime.now();
+    DateTime dt2 = DateTime.parse("2025-03-29");
+
+    if (!sonFechasIguales(dt1,dt2)){
+      setState(() {
+        isWeddingDay = true;
+      });
+    }else{
+      setState(() {
+        isWeddingDay = false;
+      });
+    }
 
     return Scaffold(
       floatingActionButton: isWeddingDay ? FloatingActionButton(
@@ -300,4 +313,9 @@ class _InvitationState extends State<Invitation> {
       ),
     );
   }
+
+  bool sonFechasIguales(DateTime a, DateTime b) {
+    return a.year == b.year && a.month == b.month && a.day == b.day;
+  }
+
 }
