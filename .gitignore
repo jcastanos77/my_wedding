@@ -43,3 +43,5 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 build/ios/Release-iphoneos/gRPC-Core/grpc.framework.dSYM/Contents/Resources/DWARF/grpc
+build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill
+build/ios/Release-iphoneos/FirebaseFirestoreInternal/FirebaseFirestoreInternal.framework.dSYM/Contents/Resources/DWARF/FirebaseFirestoreInternal
