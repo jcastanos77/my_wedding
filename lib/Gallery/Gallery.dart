@@ -23,6 +23,9 @@ class _GalleryState extends State<Gallery> {
   }
 
   Future<void> fetchImages() async {
+    setState(() {
+      imageUrls = [];
+    });
     List<String> urls = [];
     try {
       // Referencia a la carpeta "images" en Firebase Storage
@@ -67,7 +70,7 @@ class _GalleryState extends State<Gallery> {
       TaskSnapshot snapshot = await uploadTask;
       String downloadUrl = await snapshot.ref.getDownloadURL();
 
-      print('Imagen subida con éxito: $downloadUrl');
+      fetchImages();
     } catch (e) {
       print('Error al subir la imagen: $e');
     }
