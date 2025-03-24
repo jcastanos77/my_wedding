@@ -59,6 +59,9 @@ class _GalleryState extends State<Gallery> {
 
   Future<void> upLoadImage() async {
     try {
+      setState(() {
+        imageUrls = [];
+      });
       Uint8List imageBytes = await _image.readAsBytes();
       String fileName = _image.name;
 
