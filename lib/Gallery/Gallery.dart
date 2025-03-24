@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:galleryimage/galleryimage.dart';
@@ -62,8 +64,12 @@ class _GalleryState extends State<Gallery> {
       setState(() {
         imageUrls = [];
       });
+      var random = Random();
+      int numeroAleatorio = random.nextInt(100000000);
+      print(numeroAleatorio);
+
       Uint8List imageBytes = await _image.readAsBytes();
-      String fileName = _image.name;
+      String fileName = _image.name+numeroAleatorio.toString();
 
       // 3. Subir la imagen a Firebase Storage
       Reference storageRef = FirebaseStorage.instance.ref().child('images/$fileName');
