@@ -64,20 +64,11 @@ class _GalleryState extends State<Gallery> {
       setState(() {
         imageUrls = [];
       });
-      var random = Random();
-      int numeroAleatorio = random.nextInt(100000000);
-      print(numeroAleatorio);
 
-      Uint8List imageBytes = await _image.readAsBytes();
-      String fileName = _image.name+numeroAleatorio.toString();
+      String fileName = _image.name+"${DateTime.now().millisecondsSinceEpoch}.jpg";
 
       // 3. Subir la imagen a Firebase Storage
-      Reference storageRef = FirebaseStorage.instance.ref().child('images/$fileName');
-      UploadTask uploadTask = storageRef.putData(imageBytes);
-
-      // 4. Obtener la URL de la imagen subida
-      TaskSnapshot snapshot = await uploadTask;
-      String downloadUrl = await snapshot.ref.getDownloadURL();
+      FirebaseStorage.instance.ref().child('images/$fileName');
 
       fetchImages();
     } catch (e) {
