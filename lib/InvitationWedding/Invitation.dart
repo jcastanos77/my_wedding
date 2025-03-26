@@ -43,7 +43,7 @@ class _InvitationState extends State<Invitation> {
     DateTime dt1 = DateTime.now();
     DateTime dt2 = DateTime.parse("2025-03-29");
 
-    if (!sonFechasIguales(dt1,dt2)){
+    if (sonFechasIguales(dt1,dt2)){
       setState(() {
         isWeddingDay = true;
       });

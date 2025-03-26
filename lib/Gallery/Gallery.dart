@@ -65,7 +65,6 @@ class _GalleryState extends State<Gallery> {
       });
       String nameWithoutExtension = path.basenameWithoutExtension(_image.name);
       String fileName = nameWithoutExtension + "${DateTime.now().millisecondsSinceEpoch}.png";
-      print(fileName);
       // 3. Subir la imagen a Firebase Storage
       FirebaseStorage.instance.ref().child('images/$fileName');
 
