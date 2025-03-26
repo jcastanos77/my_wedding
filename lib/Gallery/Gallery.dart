@@ -1,4 +1,4 @@
-import 'dart:math';
+import 'package:path/path.dart' as path;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -32,11 +32,9 @@ class _GalleryState extends State<Gallery> {
     try {
       // Referencia a la carpeta "images" en Firebase Storage
       final ListResult result = await FirebaseStorage.instance.ref("images").listAll();
-      print('result: $result');
       // Obtener la URL de cada imagen
       for (var ref in result.items) {
         String url = await ref.getDownloadURL();
-        print('urls: $url');
         urls.add(url);
       }
 
@@ -60,13 +58,14 @@ class _GalleryState extends State<Gallery> {
   }
 
   Future<void> upLoadImage() async {
+
     try {
       setState(() {
         imageUrls = [];
       });
-
-      String fileName = _image.name+"${DateTime.now().millisecondsSinceEpoch}.jpg";
-
+      String nameWithoutExtension = path.basenameWithoutExtension(_image.name);
+      String fileName = nameWithoutExtension + "${DateTime.now().millisecondsSinceEpoch}.png";
+      print(fileName);
       // 3. Subir la imagen a Firebase Storage
       FirebaseStorage.instance.ref().child('images/$fileName');
 
