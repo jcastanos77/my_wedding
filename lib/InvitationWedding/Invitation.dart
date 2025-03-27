@@ -4,6 +4,7 @@ import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
 import 'package:my_wedding/creatingInvitation/ConfirmarInvitacion.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../Gallery/Gallery.dart';
 
@@ -263,7 +264,7 @@ class _InvitationState extends State<Invitation> {
               width: MediaQuery.of(context).size.width,
               child: Column(
                 children: [
-                  Icon(Icons.science_rounded),
+                  Icon(FontAwesomeIcons.shirt),
                   Text("Codigo de vestimenta:", style: GoogleFonts.raleway(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
