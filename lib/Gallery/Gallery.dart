@@ -49,9 +49,7 @@ class _GalleryState extends State<Gallery> {
   }
 
   Future<void> subirImagen() async {
-    setState(() {
-      imageUrls = [];
-    });
+
     final Reference storageRef = FirebaseStorage.instance.ref().child(
         'images/${DateTime
             .now()
@@ -83,7 +81,9 @@ class _GalleryState extends State<Gallery> {
           print("No se seleccionó ninguna imagen.");
           return;
         }
-
+        setState(() {
+          imageUrls = [];
+        });
         File file = File(image.path);
         UploadTask uploadTask = storageRef.putFile(file);
         TaskSnapshot snapshot = await uploadTask;
