@@ -1,12 +1,15 @@
 import 'package:path/path.dart' as path;
 import 'dart:io';
-
+import 'dart:html' as html show File;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:galleryimage/galleryimage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:image_picker/image_picker.dart';
+
 
 class Gallery extends StatefulWidget {
   const Gallery({Key? key}) : super(key: key);
@@ -85,6 +88,20 @@ class _GalleryState extends State<Gallery> {
     }
   }
 
+  Future<void> subirImagen() async {
+      // 📌 Manejo para Android/iOS
+      final picker = ImagePicker();
+      final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+      File file = File(image.path);
+      final ref = FirebaseStorage.instance.ref().child('images/${DateTime.now().millisecondsSinceEpoch}.jpg');
+      final uploadTask = ref.putFile(file);
+      final snapshot = await uploadTask;
+      final downloadUrl = await snapshot.ref.getDownloadURL();
+      print("✅ Imagen subida en Android/iOS: $downloadUrl");
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,7 +119,7 @@ class _GalleryState extends State<Gallery> {
         ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xfff7bba9),
-        onPressed: getImage,
+        onPressed: subirImagen,
         child: const Icon(Icons.drive_folder_upload, color: Colors.white, size: 28),
       ),
     );
