@@ -92,32 +92,34 @@ class _InvitationState extends State<Invitation> {
                         Icon(Icons.punch_clock_rounded,color: Colors.white),
                         Text("Dias restantes:", style: GoogleFonts.raleway(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),),
                         SizedBox(height: 8,),
-                        Container(
-                          color: Colors.black.withOpacity(.1),
-                          height: 100,
-                          child: Center(
-                            child: TimerCountdown(
-                              timeTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
-                              descriptionTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-                              colonsTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-                              format: CountDownTimerFormat.daysHoursMinutesSeconds,
-                              hoursDescription: "Horas",
-                              daysDescription: "Dias",
-                              minutesDescription: "Minutos",
-                              secondsDescription: "Segundos",
-                              endTime: DateTime.now().add(
-                                Duration(
-                                  days: 0,
-                                  hours: 0,
-                                  minutes: 0,
-                                  seconds: 0,),
+                        Flexible(
+                          child: Container(
+                            color: Colors.black.withOpacity(.1),
+                            height: 100,
+                            child: Center(
+                              child: TimerCountdown(
+                                timeTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+                                descriptionTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                                colonsTextStyle: GoogleFonts.raleway(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                                format: CountDownTimerFormat.daysHoursMinutesSeconds,
+                                hoursDescription: "Horas",
+                                daysDescription: "Dias",
+                                minutesDescription: "Minutos",
+                                secondsDescription: "Segundos",
+                                endTime: DateTime.now().add(
+                                  Duration(
+                                    days: 0,
+                                    hours: 0,
+                                    minutes: 0,
+                                    seconds: 0,),
+                                ),
+                                onEnd: () {
+                                  print("Timer finished");
+                                  setState(() {
+                                    isWeddingDay = true;
+                                  });
+                                },
                               ),
-                              onEnd: () {
-                                print("Timer finished");
-                                setState(() {
-                                  isWeddingDay = true;
-                                });
-                              },
                             ),
                           ),
                         ),

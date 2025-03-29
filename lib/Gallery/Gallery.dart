@@ -1,4 +1,5 @@
 import 'package:path/path.dart' as path;
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -63,11 +64,21 @@ class _GalleryState extends State<Gallery> {
       setState(() {
         imageUrls = [];
       });
+      File file = File(_image.path);
       String nameWithoutExtension = path.basenameWithoutExtension(_image.name);
       String fileName = nameWithoutExtension + "${DateTime.now().millisecondsSinceEpoch}.png";
+      print("------------");
+      print(fileName);
       // 3. Subir la imagen a Firebase Storage
-      FirebaseStorage.instance.ref().child('images/$fileName');
+      Reference ref = FirebaseStorage.instance.ref().child('images/$fileName');
+      // Subir archivo
+      UploadTask uploadTask = ref.putFile(file);
 
+      // Esperar a que termine la subida
+      TaskSnapshot snapshot = await uploadTask.whenComplete(() => {});
+      String downloadUrl = await snapshot.ref.getDownloadURL();
+
+      print("✅ Imagen subida con éxito: $downloadUrl");
       fetchImages();
     } catch (e) {
       print('Error al subir la imagen: $e');
