@@ -107,10 +107,10 @@ class _InvitationState extends State<Invitation> {
                               secondsDescription: "Segundos",
                               endTime: DateTime.now().add(
                                 Duration(
-                                  days: days,
-                                  hours: hours,
-                                  minutes: minutes,
-                                  seconds: seconds,),
+                                  days: 0,
+                                  hours: 0,
+                                  minutes: 0,
+                                  seconds: 0,),
                               ),
                               onEnd: () {
                                 print("Timer finished");
