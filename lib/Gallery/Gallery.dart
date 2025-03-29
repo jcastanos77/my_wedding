@@ -48,55 +48,53 @@ class _GalleryState extends State<Gallery> {
     }
   }
 
-  Future<void> upLoadImage() async {
-
-    try {
-      setState(() {
-        imageUrls = [];
-      });
-      File file = File(_image.path);
-      String nameWithoutExtension = path.basenameWithoutExtension(_image.name);
-      String fileName = nameWithoutExtension + "${DateTime.now().millisecondsSinceEpoch}.png";
-      print("------------");
-      print(fileName);
-      // 3. Subir la imagen a Firebase Storage
-      Reference ref = FirebaseStorage.instance.ref().child('images/$fileName');
-      // Subir archivo
-      UploadTask uploadTask = ref.putFile(file);
-
-      // Esperar a que termine la subida
-      TaskSnapshot snapshot = await uploadTask.whenComplete(() => {});
-      String downloadUrl = await snapshot.ref.getDownloadURL();
-
-      print("✅ Imagen subida con éxito: $downloadUrl");
-      fetchImages();
-    } catch (e) {
-      print('Error al subir la imagen: $e');
-    }
-  }
-
   Future<void> subirImagen() async {
     setState(() {
       imageUrls = [];
     });
-    try {
-      final Reference storageRef = FirebaseStorage.instance.ref().child('images/${DateTime.now().millisecondsSinceEpoch}.jpg');
-      Uint8List? imageBytes = await ImagePickerWeb.getImageAsBytes();
-      if (imageBytes == null) {
-        print("No se seleccionó ninguna imagen.");
-        return;
+    final Reference storageRef = FirebaseStorage.instance.ref().child(
+        'images/${DateTime
+            .now()
+            .millisecondsSinceEpoch}.jpg');
+    if (kIsWeb) {
+      try {
+        Uint8List? imageBytes = await ImagePickerWeb.getImageAsBytes();
+        if (imageBytes == null) {
+          print("No se seleccionó ninguna imagen.");
+          return;
+        }
+
+        UploadTask uploadTask = storageRef.putData(imageBytes);
+        TaskSnapshot snapshot = await uploadTask;
+        String downloadUrl = await snapshot.ref.getDownloadURL();
+
+        print("✅ Imagen subida en Web: $downloadUrl");
+
       }
+      catch (e) {
+        print('Error al subir la imagen: $e');
+      }
+    }else{
+      try {
+        final picker = ImagePicker();
+        final XFile? image = await picker.pickImage(
+            source: ImageSource.gallery);
+        if (image == null) {
+          print("No se seleccionó ninguna imagen.");
+          return;
+        }
 
-      UploadTask uploadTask = storageRef.putData(imageBytes);
-      TaskSnapshot snapshot = await uploadTask;
-      String downloadUrl = await snapshot.ref.getDownloadURL();
+        File file = File(image.path);
+        UploadTask uploadTask = storageRef.putFile(file);
+        TaskSnapshot snapshot = await uploadTask;
+        String downloadUrl = await snapshot.ref.getDownloadURL();
 
-      print("✅ Imagen subida en Web: $downloadUrl");
-      fetchImages();
+        print("✅ Imagen subida en Android/iOS: $downloadUrl");
+      }catch(e){
+        print('Error al subir la imagen: $e');
+      }
     }
-    catch (e) {
-      print('Error al subir la imagen: $e');
-    }
+    fetchImages();
   }
 
   @override

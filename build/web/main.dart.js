@@ -88621,13 +88621,13 @@ return A.D($async$qw,r)},
 pa(){var s=0,r=A.E(t.H),q,p=2,o=[],n=this,m,l,k,j,i,h,g,f,e,d,c
 var $async$pa=A.z(function(a,b){if(a===1){o.push(b)
 s=p}while(true)switch(s){case 0:n.ab(new A.aq3(n))
-p=4
 g=$.d7
 f=(g==null?$.d7=$.hO():g).hY("[DEFAULT]")
 A.cE(f,$.fI(),!0)
 g=A.aDQ(new A.ep(f)).aqX()
 e=g.a
 m=A.qC(g.b,e.b.mZ(e.a.ajH("images/"+Date.now()+".jpg")))
+p=4
 s=7
 return A.A(A.a8U(),$async$pa)
 case 7:l=b
@@ -88646,7 +88646,6 @@ s=9
 return A.A(A.qC(e.b,e.a.glt()).a.ij(),$async$pa)
 case 9:i=b
 A.iD("\u2705 Imagen subida en Web: "+A.l(i))
-n.qw()
 p=2
 s=6
 break
@@ -88658,7 +88657,8 @@ s=6
 break
 case 3:s=2
 break
-case 6:case 1:return A.C(q,r)
+case 6:n.qw()
+case 1:return A.C(q,r)
 case 2:return A.B(o.at(-1),r)}})
 return A.D($async$pa,r)},
 M(a){var s=4294425513,r=null,q=A.ayb(A.b0(s),1,A.aY("Galleria",r,r,r,A.IE().$3$color$fontSize$fontWeight(B.k,20,B.bA),r,r)),p=this.e,o=p.length
