@@ -7,9 +7,7 @@ import 'package:galleryimage/galleryimage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:image_picker/image_picker.dart';
-
+import 'package:image_picker_web/image_picker_web.dart';
 
 class Gallery extends StatefulWidget {
   const Gallery({Key? key}) : super(key: key);
@@ -50,17 +48,6 @@ class _GalleryState extends State<Gallery> {
     }
   }
 
-
-  Future getImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      _image = image!;
-    });
-    upLoadImage();
-  }
-
   Future<void> upLoadImage() async {
 
     try {
@@ -89,17 +76,27 @@ class _GalleryState extends State<Gallery> {
   }
 
   Future<void> subirImagen() async {
-      // 📌 Manejo para Android/iOS
-      final picker = ImagePicker();
-      final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-      if (image == null) return;
-      File file = File(image.path);
-      final ref = FirebaseStorage.instance.ref().child('images/${DateTime.now().millisecondsSinceEpoch}.jpg');
-      final uploadTask = ref.putFile(file);
-      final snapshot = await uploadTask;
-      final downloadUrl = await snapshot.ref.getDownloadURL();
-      print("✅ Imagen subida en Android/iOS: $downloadUrl");
+    setState(() {
+      imageUrls = [];
+    });
+    try {
+      final Reference storageRef = FirebaseStorage.instance.ref().child('images/${DateTime.now().millisecondsSinceEpoch}.jpg');
+      Uint8List? imageBytes = await ImagePickerWeb.getImageAsBytes();
+      if (imageBytes == null) {
+        print("No se seleccionó ninguna imagen.");
+        return;
+      }
 
+      UploadTask uploadTask = storageRef.putData(imageBytes);
+      TaskSnapshot snapshot = await uploadTask;
+      String downloadUrl = await snapshot.ref.getDownloadURL();
+
+      print("✅ Imagen subida en Web: $downloadUrl");
+      fetchImages();
+    }
+    catch (e) {
+      print('Error al subir la imagen: $e');
+    }
   }
 
   @override
