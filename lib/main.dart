@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_wedding/Gallery/Gallery.dart';
+import 'package:my_wedding/InvitationWedding/Invitation.dart';
 import 'package:my_wedding/SplashWedding.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:my_wedding/creatingInvitation/ConfirmarInvitacion.dart';
 import 'InvitationWedding/GuestsList.dart';
 import 'creatingInvitation/GenerateImageInvitation.dart';
 import 'package:animated_floating_buttons/animated_floating_buttons.dart';
 import 'firebase_options.dart';
+import 'package:go_router/go_router.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,6 +21,15 @@ void main() async{
   runApp(ProviderScope(child: MyApp()));
 }
 
+final GoRouter _router = GoRouter(
+  routes: [
+    GoRoute(path: '/', builder: (context, state) => const MyHomePage(title: 'My Wedding')),
+    GoRoute(path: '/galeria', builder: (context, state) => const Gallery()),
+    GoRoute(path: '/invitacion', builder: (context, state) => const Invitation()),
+    GoRoute(path: '/confirmarInvitacion', builder: (context, state) => const ConfirmarInvitacion()),
+  ],
+);
+
 class MyApp extends StatelessWidget {
   const MyApp();
 
@@ -24,9 +37,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return MaterialApp(
-      title: 'Mi boda',
-      home: const MyHomePage(title: 'My Wedding'),
+    return MaterialApp.router(
+      routerConfig: _router,
     );
   }
 }

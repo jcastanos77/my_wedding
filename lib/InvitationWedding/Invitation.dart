@@ -5,7 +5,7 @@ import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
 import 'package:my_wedding/creatingInvitation/ConfirmarInvitacion.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:go_router/go_router.dart';
 import '../Gallery/Gallery.dart';
 
 class Invitation extends StatefulWidget {
@@ -57,18 +57,14 @@ class _InvitationState extends State<Invitation> {
     return Scaffold(
       floatingActionButton: isWeddingDay ? FloatingActionButton(
         backgroundColor: Colors.black,
-        onPressed: (){
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => Gallery()));
-        },
+        onPressed: () => context.go('/galeria'),
         child: const Icon(Icons.photo, color: Colors.white, size: 28),
         heroTag: '3',
       ) : FloatingActionButton(
         heroTag: '2',
         backgroundColor: Colors.black,
         child: Icon(Icons.insert_invitation, color: Colors.white, size: 28),
-        onPressed: (){
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => ConfirmarInvitacion()));
-      },),
+        onPressed: () => context.go('/confirmarInvitacion'),),
       body: SingleChildScrollView(
         child: Column(
           children: [

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_wedding/InvitationWedding/Invitation.dart';
 import 'package:animated_background_view/animated_background_view.dart';
+import 'package:go_router/go_router.dart';
 
 class Splashwedding extends StatefulWidget {
   const Splashwedding({Key? key}) : super(key: key);
@@ -64,12 +64,7 @@ class _SplashweddingState extends State<Splashwedding> {
                       FloatingActionButton.extended(
                         backgroundColor: Color(0xfff7bba9),
                         heroTag: '213',
-                        onPressed: (){ setState(() {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const Invitation()),
-                          );
-                        }); },
+                        onPressed: () => context.go('/invitacion'),
                         label: const Text('Vamos a tu invitación', style: TextStyle(color: Colors.white),),
                       )
                     ],
