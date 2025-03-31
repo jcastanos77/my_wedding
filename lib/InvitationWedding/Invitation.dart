@@ -318,7 +318,9 @@ class _InvitationState extends State<Invitation> {
   }
 
   bool sonFechasIguales(DateTime a, DateTime b) {
-    return a.year == b.year && a.month == b.month && a.day == b.day;
+    if (a.year == b.year && a.month == b.month && a.day == b.day) {return true;}
+    else if (a.year >= b.year && a.month >= b.month && a.day >= b.day){ return  true;}
+    else {return false;}
   }
 
 }
