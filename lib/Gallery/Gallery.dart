@@ -1,4 +1,3 @@
-import 'package:path/path.dart' as path;
 import 'dart:io';
 import 'dart:html' as html show File;
 import 'package:flutter/foundation.dart';
@@ -17,26 +16,27 @@ class Gallery extends StatefulWidget {
 }
 
 class _GalleryState extends State<Gallery> {
-  late XFile _image;
   List<String> imageUrls = [];
+  late Future<List<String>> futureImages;
 
   @override
   void initState() {
     super.initState();
-    fetchImages();
+    futureImages = fetchImages();
   }
 
-  Future<void> fetchImages() async {
+  Future<List<String>> fetchImages() async {
     setState(() {
       imageUrls = [];
     });
     List<String> urls = [];
     try {
-      // Referencia a la carpeta "images" en Firebase Storage
-      final ListResult result = await FirebaseStorage.instance.ref("images").listAll();
-      // Obtener la URL de cada imagen
+      final storageRef = FirebaseStorage.instance.ref().child("images");
+
+    final ListResult result = await storageRef.listAll();
       for (var ref in result.items) {
         String url = await ref.getDownloadURL();
+        url += "&s=500";
         urls.add(url);
       }
 
@@ -44,8 +44,9 @@ class _GalleryState extends State<Gallery> {
         imageUrls = urls;
       });
     } catch (e) {
-      print("Error al obtener imágenes: $e");
+      debugPrint("Error al obtener imágenes: $e");
     }
+      return urls;
   }
 
   Future<void> subirImagen() async {
@@ -105,12 +106,26 @@ class _GalleryState extends State<Gallery> {
         elevation: 1,
         title: Text("Galleria", style: GoogleFonts.roboto(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600),),
       ),
-        body: imageUrls.isEmpty
-            ? Center(child: CircularProgressIndicator())
-            :  GalleryImage(
-          imageUrls: imageUrls,
-          numOfShowImages: imageUrls.length,
-          titleGallery: "Boda Jorge & Mayte",
+        body:FutureBuilder<List<String>>(
+          future: futureImages,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (snapshot.hasError) {
+              return Center(child: Text("Error al cargar imágenes"));
+            }
+            if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return Center(child: Text("No hay imágenes disponibles"));
+            }
+
+            return Center(
+              child: GalleryImage(
+                numOfShowImages: snapshot.data!.length,
+                imageUrls: snapshot.data!,
+              ),
+            );
+          },
         ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xfff7bba9),
