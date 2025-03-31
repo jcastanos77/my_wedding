@@ -12,8 +12,10 @@ import 'creatingInvitation/GenerateImageInvitation.dart';
 import 'package:animated_floating_buttons/animated_floating_buttons.dart';
 import 'firebase_options.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 void main() async{
+  setUrlStrategy(PathUrlStrategy());
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
