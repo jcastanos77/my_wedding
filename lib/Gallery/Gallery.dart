@@ -43,20 +43,20 @@ class _GalleryState extends State<Gallery> {
 
   Future<void> subirImagen() async {
     try {
-      // 🔹 Seleccionar imágenes (Compatible con Web y Móvil)
+      // 🔹 Mostrar el indicador de carga ANTES de seleccionar imágenes
+      showLoadingDialog(context);
+
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.image,
         allowMultiple: true,
-        withData: kIsWeb, // Necesario para Web
+        withData: kIsWeb, // ✅ Necesario para Web
       );
 
       if (result == null || result.files.isEmpty) {
         debugPrint("⚠ No se seleccionaron imágenes.");
+        Navigator.of(context).pop(); // 🔄 Cerrar el diálogo si el usuario cancela
         return;
       }
-
-      // 🔹 Mostrar indicador de carga
-      showLoadingDialog();
 
       List<Future<String>> uploadTasks = [];
 
@@ -65,23 +65,24 @@ class _GalleryState extends State<Gallery> {
             'images/${DateTime.now().millisecondsSinceEpoch}_${file.name}');
 
         UploadTask uploadTask;
-
         if (kIsWeb) {
-          uploadTask = storageRef.putData(file.bytes!); // ✅ Web usa `putData`
+          uploadTask = storageRef.putData(file.bytes!);
         } else {
-          uploadTask = storageRef.putFile(File(file.path!)); // ✅ Móvil usa `putFile`
+          uploadTask = storageRef.putFile(File(file.path!));
         }
 
         uploadTasks.add(uploadTask.then((snapshot) => snapshot.ref.getDownloadURL()));
       }
 
+      // 🔹 Esperar todas las subidas
       List<String> downloadUrls = await Future.wait(uploadTasks);
       debugPrint("✅ Imágenes subidas: $downloadUrls");
 
-      // 🔄 Cerrar el diálogo y actualizar galería
+      // 🔄 Cerrar el diálogo cuando termine la subida
       Navigator.of(context).pop();
+
       setState(() {
-        futureImages = fetchImages();
+        futureImages = fetchImages(); // 🔄 Recargar la galería
       });
 
     } catch (e) {
@@ -127,19 +128,22 @@ class _GalleryState extends State<Gallery> {
     );
   }
 
-  void showLoadingDialog() {
+  void showLoadingDialog(BuildContext context) {
     showDialog(
       context: context,
-      barrierDismissible: false,
+      barrierDismissible: false, // No permitir que el usuario lo cierre manualmente
       builder: (context) {
-        return AlertDialog(
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: const [
-              CircularProgressIndicator(),
-              SizedBox(height: 16),
-              Text("Subiendo imágenes..."),
-            ],
+        return WillPopScope(
+          onWillPop: () async => false, // Evitar cierre con botón atrás
+          child: AlertDialog(
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                CircularProgressIndicator(),
+                SizedBox(height: 16),
+                Text("Subiendo imágenes..."),
+              ],
+            ),
           ),
         );
       },
