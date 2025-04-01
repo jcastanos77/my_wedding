@@ -41,10 +41,7 @@ class _InvitationState extends State<Invitation> {
     int minutes = difference.inMinutes % 60;
     int seconds = difference.inSeconds % 60;
 
-    DateTime dt1 = DateTime.now();
-    DateTime dt2 = DateTime.parse("2025-03-29");
-
-    if (sonFechasIguales(dt1,dt2)){
+    if (isTodayOrAfterTargetDate()){
       setState(() {
         isWeddingDay = true;
       });
@@ -104,16 +101,13 @@ class _InvitationState extends State<Invitation> {
                                 secondsDescription: "Segundos",
                                 endTime: DateTime.now().add(
                                   Duration(
-                                    days: 0,
-                                    hours: 0,
-                                    minutes: 0,
-                                    seconds: 0,),
+                                    days: days,
+                                    hours: hours,
+                                    minutes: minutes,
+                                    seconds: seconds,),
                                 ),
                                 onEnd: () {
-                                  print("Timer finished");
-                                  setState(() {
-                                    isWeddingDay = true;
-                                  });
+                                  isWeddingDay = true;
                                 },
                               ),
                             ),
@@ -313,10 +307,11 @@ class _InvitationState extends State<Invitation> {
     );
   }
 
-  bool sonFechasIguales(DateTime a, DateTime b) {
-    if (a.year == b.year && a.month == b.month && a.day == b.day) {return true;}
-    else if (a.year >= b.year && a.month >= b.month && a.day >= b.day){ return  true;}
-    else {return false;}
+  bool isTodayOrAfterTargetDate() {
+    DateTime today = DateTime.now();
+    DateTime targetDate = DateTime(2025, 3, 29);
+
+    return today.isAfter(targetDate) || today.isAtSameMomentAs(targetDate);
   }
 
 }

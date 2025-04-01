@@ -26,76 +26,54 @@ class _GalleryState extends State<Gallery> {
   }
 
   Future<List<String>> fetchImages() async {
-    setState(() {
-      imageUrls = [];
-    });
     List<String> urls = [];
     try {
       final storageRef = FirebaseStorage.instance.ref().child("images");
+      final ListResult result = await storageRef.listAll();
 
-    final ListResult result = await storageRef.listAll();
       for (var ref in result.items) {
         String url = await ref.getDownloadURL();
-        url += "&s=500";
-        urls.add(url);
+        urls.add("$url&s=500");
       }
-
-      setState(() {
-        imageUrls = urls;
-      });
     } catch (e) {
-      debugPrint("Error al obtener imágenes: $e");
+      debugPrint("❌ Error al obtener imágenes: $e");
     }
-      return urls;
+    return urls;
   }
 
   Future<void> subirImagen() async {
+    final picker = ImagePicker();
+    List<XFile>? images = await picker.pickMultiImage(); // ✅ Permite múltiples imágenes
 
-    final Reference storageRef = FirebaseStorage.instance.ref().child(
-        'images/${DateTime
-            .now()
-            .millisecondsSinceEpoch}.jpg');
-    if (kIsWeb) {
-      try {
-        Uint8List? imageBytes = await ImagePickerWeb.getImageAsBytes();
-        if (imageBytes == null) {
-          print("No se seleccionó ninguna imagen.");
-          return;
-        }
+    if (images == null || images.isEmpty) {
+      debugPrint("⚠ No se seleccionaron imágenes.");
+      return;
+    }
 
-        UploadTask uploadTask = storageRef.putData(imageBytes);
-        TaskSnapshot snapshot = await uploadTask;
-        String downloadUrl = await snapshot.ref.getDownloadURL();
+    try {
+      List<Future<String>> uploadTasks = []; // 🔹 Lista de tareas de subida
 
-        print("✅ Imagen subida en Web: $downloadUrl");
+      for (XFile image in images) {
+        final Reference storageRef = FirebaseStorage.instance.ref().child(
+            'images/${DateTime.now().millisecondsSinceEpoch}_${image.name}');
 
-      }
-      catch (e) {
-        print('Error al subir la imagen: $e');
-      }
-    }else{
-      try {
-        final picker = ImagePicker();
-        final XFile? image = await picker.pickImage(
-            source: ImageSource.gallery);
-        if (image == null) {
-          print("No se seleccionó ninguna imagen.");
-          return;
-        }
-        setState(() {
-          imageUrls = [];
-        });
         File file = File(image.path);
         UploadTask uploadTask = storageRef.putFile(file);
-        TaskSnapshot snapshot = await uploadTask;
-        String downloadUrl = await snapshot.ref.getDownloadURL();
 
-        print("✅ Imagen subida en Android/iOS: $downloadUrl");
-      }catch(e){
-        print('Error al subir la imagen: $e');
+        uploadTasks.add(uploadTask.then((snapshot) => snapshot.ref.getDownloadURL()));
       }
+
+      // 🔹 Esperar todas las subidas en paralelo y obtener URLs
+      List<String> downloadUrls = await Future.wait(uploadTasks);
+
+      debugPrint("✅ Imágenes subidas: $downloadUrls");
+
+      setState(() {
+        futureImages = fetchImages(); // 🔄 Recargar la galería
+      });
+    } catch (e) {
+      debugPrint("❌ Error al subir imágenes: $e");
     }
-    fetchImages();
   }
 
   @override
@@ -104,7 +82,7 @@ class _GalleryState extends State<Gallery> {
       appBar: AppBar(
         backgroundColor: Color(0xfff7bba9),
         elevation: 1,
-        title: Text("Galleria", style: GoogleFonts.roboto(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600),),
+        title: Text("Galeria", style: GoogleFonts.roboto(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600),),
       ),
         body:FutureBuilder<List<String>>(
           future: futureImages,
