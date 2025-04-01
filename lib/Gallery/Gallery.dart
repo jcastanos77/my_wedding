@@ -4,8 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:galleryimage/galleryimage.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:file_picker/file_picker.dart';
 
 class Gallery extends StatefulWidget {
   const Gallery({Key? key}) : super(key: key);
@@ -42,43 +42,51 @@ class _GalleryState extends State<Gallery> {
   }
 
   Future<void> subirImagen() async {
-    final picker = ImagePicker();
-    List<XFile>? images = await picker.pickMultiImage();
-
-    if (images == null || images.isEmpty) {
-      debugPrint("⚠ No se seleccionaron imágenes.");
-      return;
-    }
-
-    setState(() {
-      isUploading = true;
-    });
-    showLoadingDialog();
-
     try {
+      // 🔹 Seleccionar imágenes (Compatible con Web y Móvil)
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.image,
+        allowMultiple: true,
+        withData: kIsWeb, // Necesario para Web
+      );
+
+      if (result == null || result.files.isEmpty) {
+        debugPrint("⚠ No se seleccionaron imágenes.");
+        return;
+      }
+
+      // 🔹 Mostrar indicador de carga
+      showLoadingDialog();
+
       List<Future<String>> uploadTasks = [];
 
-      for (XFile image in images) {
+      for (var file in result.files) {
         final Reference storageRef = FirebaseStorage.instance.ref().child(
-            'images/${DateTime.now().millisecondsSinceEpoch}_${image.name}');
+            'images/${DateTime.now().millisecondsSinceEpoch}_${file.name}');
 
-        File file = File(image.path);
-        UploadTask uploadTask = storageRef.putFile(file);
+        UploadTask uploadTask;
+
+        if (kIsWeb) {
+          uploadTask = storageRef.putData(file.bytes!); // ✅ Web usa `putData`
+        } else {
+          uploadTask = storageRef.putFile(File(file.path!)); // ✅ Móvil usa `putFile`
+        }
 
         uploadTasks.add(uploadTask.then((snapshot) => snapshot.ref.getDownloadURL()));
       }
 
       List<String> downloadUrls = await Future.wait(uploadTasks);
+      debugPrint("✅ Imágenes subidas: $downloadUrls");
 
+      // 🔄 Cerrar el diálogo y actualizar galería
+      Navigator.of(context).pop();
       setState(() {
-        futureImages = fetchImages(); // 🔄 Recargar la galería
-        isUploading = false;
+        futureImages = fetchImages();
       });
 
-      // 🔹 Cerrar el diálogo de carga
-      Navigator.of(context).pop();
     } catch (e) {
       debugPrint("❌ Error al subir imágenes: $e");
+      Navigator.of(context).pop(); // 🔄 Cerrar el diálogo en caso de error
     }
   }
 
