@@ -43,9 +43,6 @@ class _GalleryState extends State<Gallery> {
 
   Future<void> subirImagen() async {
     try {
-      // 🔹 Mostrar el indicador de carga ANTES de seleccionar imágenes
-      showLoadingDialog(context);
-
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.image,
         allowMultiple: true,
@@ -57,6 +54,8 @@ class _GalleryState extends State<Gallery> {
         Navigator.of(context).pop(); // 🔄 Cerrar el diálogo si el usuario cancela
         return;
       }
+
+      showLoadingDialog(context);
 
       List<Future<String>> uploadTasks = [];
 
