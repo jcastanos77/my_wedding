@@ -6,7 +6,6 @@ import 'package:galleryimage/galleryimage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:image_picker_web/image_picker_web.dart';
 
 class Gallery extends StatefulWidget {
   const Gallery({Key? key}) : super(key: key);
@@ -18,6 +17,7 @@ class Gallery extends StatefulWidget {
 class _GalleryState extends State<Gallery> {
   List<String> imageUrls = [];
   late Future<List<String>> futureImages;
+  bool isUploading = false;
 
   @override
   void initState() {
@@ -43,15 +43,20 @@ class _GalleryState extends State<Gallery> {
 
   Future<void> subirImagen() async {
     final picker = ImagePicker();
-    List<XFile>? images = await picker.pickMultiImage(); // ✅ Permite múltiples imágenes
+    List<XFile>? images = await picker.pickMultiImage();
 
     if (images == null || images.isEmpty) {
       debugPrint("⚠ No se seleccionaron imágenes.");
       return;
     }
 
+    setState(() {
+      isUploading = true;
+    });
+    showLoadingDialog();
+
     try {
-      List<Future<String>> uploadTasks = []; // 🔹 Lista de tareas de subida
+      List<Future<String>> uploadTasks = [];
 
       for (XFile image in images) {
         final Reference storageRef = FirebaseStorage.instance.ref().child(
@@ -63,14 +68,15 @@ class _GalleryState extends State<Gallery> {
         uploadTasks.add(uploadTask.then((snapshot) => snapshot.ref.getDownloadURL()));
       }
 
-      // 🔹 Esperar todas las subidas en paralelo y obtener URLs
       List<String> downloadUrls = await Future.wait(uploadTasks);
-
-      debugPrint("✅ Imágenes subidas: $downloadUrls");
 
       setState(() {
         futureImages = fetchImages(); // 🔄 Recargar la galería
+        isUploading = false;
       });
+
+      // 🔹 Cerrar el diálogo de carga
+      Navigator.of(context).pop();
     } catch (e) {
       debugPrint("❌ Error al subir imágenes: $e");
     }
@@ -110,6 +116,25 @@ class _GalleryState extends State<Gallery> {
         onPressed: subirImagen,
         child: const Icon(Icons.drive_folder_upload, color: Colors.white, size: 28),
       ),
+    );
+  }
+
+  void showLoadingDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+              CircularProgressIndicator(),
+              SizedBox(height: 16),
+              Text("Subiendo imágenes..."),
+            ],
+          ),
+        );
+      },
     );
   }
 }
