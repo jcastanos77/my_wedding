@@ -27,6 +27,9 @@ class _GalleryState extends State<Gallery> {
 
   Future<List<String>> fetchImages() async {
     List<String> urls = [];
+    setState(() {
+      imageUrls = [];
+    });
     try {
       final storageRef = FirebaseStorage.instance.ref().child("images");
       final ListResult result = await storageRef.listAll();
@@ -42,6 +45,7 @@ class _GalleryState extends State<Gallery> {
   }
 
   Future<void> subirImagen(BuildContext context) async {
+
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.image,
@@ -49,9 +53,14 @@ class _GalleryState extends State<Gallery> {
         withData: kIsWeb, // ✅ Necesario para Web
       );
 
+      setState(() {
+        isUploading = true;
+      });
+
       if (result == null || result.files.isEmpty) {
-        debugPrint("⚠ No se seleccionaron imágenes.");
-        Navigator.of(context).pop(); // 🔄 Cerrar el diálogo si el usuario cancela
+        setState(() {
+          isUploading = false;
+        });
         return;
       }
 
@@ -81,12 +90,14 @@ class _GalleryState extends State<Gallery> {
       Navigator.of(context).pop();
 
       setState(() {
-        futureImages = fetchImages(); // 🔄 Recargar la galería
+        futureImages = fetchImages();
+        isUploading = false;
       });
 
     } catch (e) {
-      debugPrint("❌ Error al subir imágenes: $e");
-      Navigator.of(context).pop(); // 🔄 Cerrar el diálogo en caso de error
+      setState(() {
+        isUploading = false; // Desactivamos la carga en caso de error
+      });
     }
   }
 
@@ -98,7 +109,17 @@ class _GalleryState extends State<Gallery> {
         elevation: 1,
         title: Text("Galeria", style: GoogleFonts.roboto(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600),),
       ),
-        body:FutureBuilder<List<String>>(
+        body: isUploading
+            ? Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              CircularProgressIndicator(),
+              SizedBox(height: 16),
+              Text("Subiendo imágenes..."),
+            ],
+          ),
+        ) : FutureBuilder<List<String>>(
           future: futureImages,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
