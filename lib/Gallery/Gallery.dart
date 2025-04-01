@@ -41,7 +41,7 @@ class _GalleryState extends State<Gallery> {
     return urls;
   }
 
-  Future<void> subirImagen() async {
+  Future<void> subirImagen(BuildContext context) async {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.image,
@@ -121,7 +121,7 @@ class _GalleryState extends State<Gallery> {
         ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xfff7bba9),
-        onPressed: subirImagen,
+        onPressed: () => subirImagen(context),
         child: const Icon(Icons.drive_folder_upload, color: Colors.white, size: 28),
       ),
     );
