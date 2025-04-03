@@ -1,14 +1,10 @@
-import 'dart:io';
-import 'dart:html' as html show File;
 import 'dart:typed_data';
+import 'dart:html' as html;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:image/image.dart' as img;
-import 'package:image_picker_for_web/image_picker_for_web.dart';
-import 'package:image_picker/image_picker.dart';
 
 class Gallery extends StatefulWidget {
   const Gallery({Key? key}) : super(key: key);
@@ -47,7 +43,7 @@ class _GalleryState extends State<Gallery> {
 
       for (var ref in result.items) {
         String url = await ref.getDownloadURL();
-        urls.add("$url&s=500");
+        urls.add("$url&s=10");
       }
     } catch (e) {
       debugPrint("❌ Error al obtener imágenes: $e");
@@ -60,11 +56,17 @@ class _GalleryState extends State<Gallery> {
     try {
       Uint8List? imageBytes;
 
-        final picker = ImagePicker();
-        final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-        if (image != null) {
-          imageBytes = await image.readAsBytes();
-        }
+      final html.FileUploadInputElement uploadInput = html.FileUploadInputElement();
+      uploadInput.accept = 'image/*';  // Asegura que solo permita imágenes
+      uploadInput.click();  // Abre el selector de archivos
+
+      await uploadInput.onChange.first; // Espera a que el usuario seleccione la imagen
+      final file = uploadInput.files!.first;
+      final reader = html.FileReader();
+      reader.readAsArrayBuffer(file);
+
+      await reader.onLoad.first;
+      imageBytes = reader.result as Uint8List;
 
       setState(() {
         isUploading = true;
