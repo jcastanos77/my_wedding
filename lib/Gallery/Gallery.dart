@@ -64,8 +64,6 @@ class _GalleryState extends State<Gallery> {
         return;
       }
 
-      showLoadingDialog(context);
-
       List<Future<String>> uploadTasks = [];
 
       for (var file in result.files) {
@@ -145,28 +143,6 @@ class _GalleryState extends State<Gallery> {
         onPressed: () => subirImagen(context),
         child: const Icon(Icons.drive_folder_upload, color: Colors.white, size: 28),
       ),
-    );
-  }
-
-  void showLoadingDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false, // No permitir que el usuario lo cierre manualmente
-      builder: (context) {
-        return WillPopScope(
-          onWillPop: () async => false, // Evitar cierre con botón atrás
-          child: AlertDialog(
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: const [
-                CircularProgressIndicator(),
-                SizedBox(height: 16),
-                Text("Subiendo imágenes..."),
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 }
