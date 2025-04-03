@@ -1,10 +1,14 @@
 import 'dart:io';
 import 'dart:html' as html show File;
+import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:image/image.dart' as img;
+import 'package:image_picker_for_web/image_picker_for_web.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Gallery extends StatefulWidget {
   const Gallery({Key? key}) : super(key: key);
@@ -17,6 +21,14 @@ class _GalleryState extends State<Gallery> {
   List<String> imageUrls = [];
   late Future<List<String>> futureImages;
   bool isUploading = false;
+
+  Uint8List reducirCalidadWeb(Uint8List imageBytes) {
+    img.Image? image = img.decodeImage(imageBytes);
+    if (image == null) return imageBytes;
+
+    Uint8List compressedBytes = Uint8List.fromList(img.encodeJpg(image, quality: 70));
+    return compressedBytes;
+  }
 
   @override
   void initState() {
@@ -46,41 +58,36 @@ class _GalleryState extends State<Gallery> {
   Future<void> subirImagen() async {
 
     try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
-        type: FileType.image,
-        allowMultiple: true
-      );
+      Uint8List? imageBytes;
 
+      if (kIsWeb) {
+        // 📌 Usa ImagePickerWeb para seleccionar imágenes en Web (Safari compatible)
+        //imageBytes = await ImagePickerWeb.getImageAsBytes();
+      } else {
+        final picker = ImagePicker();
+        final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+        if (image != null) {
+          imageBytes = await image.readAsBytes();
+        }
+      }
       setState(() {
         isUploading = true;
       });
 
-      if (result == null || result.files.isEmpty) {
-        setState(() {
-          isUploading = false;
-        });
+      if (imageBytes == null) {
+        print("⚠ No se seleccionó ninguna imagen.");
         return;
       }
 
-      List<Future<String>> uploadTasks = [];
+      // 📌 Subir a Firebase Storage
+      final Reference storageRef = FirebaseStorage.instance.ref().child(
+          'images/${DateTime.now().millisecondsSinceEpoch}.jpg');
 
-      for (var file in result.files) {
-        final Reference storageRef = FirebaseStorage.instance.ref().child(
-            'images/${DateTime.now().millisecondsSinceEpoch}_${file.name}');
+      UploadTask uploadTask = storageRef.putData(imageBytes);
+      TaskSnapshot snapshot = await uploadTask;
+      String downloadUrl = await snapshot.ref.getDownloadURL();
 
-        UploadTask uploadTask;
-        if (kIsWeb) {
-          uploadTask = storageRef.putData(file.bytes!);
-        } else {
-          uploadTask = storageRef.putFile(File(file.path!));
-        }
-
-        uploadTasks.add(uploadTask.then((snapshot) => snapshot.ref.getDownloadURL()));
-      }
-
-      // 🔹 Esperar todas las subidas
-      List<String> downloadUrls = await Future.wait(uploadTasks);
-      debugPrint("✅ Imágenes subidas: $downloadUrls");
+      print("✅ Imagen subida: $downloadUrl");
 
       setState(() {
         futureImages = fetchImages();
