@@ -60,16 +60,12 @@ class _GalleryState extends State<Gallery> {
     try {
       Uint8List? imageBytes;
 
-      if (kIsWeb) {
-        // 📌 Usa ImagePickerWeb para seleccionar imágenes en Web (Safari compatible)
-        //imageBytes = await ImagePickerWeb.getImageAsBytes();
-      } else {
         final picker = ImagePicker();
         final XFile? image = await picker.pickImage(source: ImageSource.gallery);
         if (image != null) {
           imageBytes = await image.readAsBytes();
         }
-      }
+
       setState(() {
         isUploading = true;
       });
