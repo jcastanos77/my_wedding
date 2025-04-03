@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:html' as html show File;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:galleryimage/galleryimage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:file_picker/file_picker.dart';
@@ -44,13 +43,12 @@ class _GalleryState extends State<Gallery> {
     return urls;
   }
 
-  Future<void> subirImagen(BuildContext context) async {
+  Future<void> subirImagen() async {
 
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.image,
-        allowMultiple: true,
-        withData: kIsWeb, // ✅ Necesario para Web
+        allowMultiple: true
       );
 
       setState(() {
@@ -83,9 +81,6 @@ class _GalleryState extends State<Gallery> {
       // 🔹 Esperar todas las subidas
       List<String> downloadUrls = await Future.wait(uploadTasks);
       debugPrint("✅ Imágenes subidas: $downloadUrls");
-
-      // 🔄 Cerrar el diálogo cuando termine la subida
-      Navigator.of(context).pop();
 
       setState(() {
         futureImages = fetchImages();
@@ -140,9 +135,36 @@ class _GalleryState extends State<Gallery> {
         ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xfff7bba9),
-        onPressed: () => subirImagen(context),
+        onPressed: () => subirImagen(),
         child: const Icon(Icons.drive_folder_upload, color: Colors.white, size: 28),
       ),
+    );
+  }
+}
+
+class GalleryImage extends StatelessWidget {
+  final int numOfShowImages;
+  final List<String> imageUrls;
+
+  const GalleryImage({
+    Key? key,
+    required this.numOfShowImages,
+    required this.imageUrls,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        childAspectRatio: 1,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+      ),
+      itemCount: numOfShowImages,
+      itemBuilder: (context, index) {
+        return Image.network(imageUrls[index], fit: BoxFit.cover);
+      },
     );
   }
 }
